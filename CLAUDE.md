@@ -130,6 +130,41 @@ palitos e o fundo da página vaza pelo meio.
 O desenho sai de `ferramentas/roda.py` (gerador). Mexeu na geometria? Rode o
 gerador e troque os dois `<svg class="roda ...">` do index.
 
+## Duas seções, duas linguagens
+
+O espelho e o método usam a **mesma mecânica de rolagem** (palco travado, cenas
+atravessando a profundidade) e por isso **não podem ter o mesmo desenho**. Se
+tiverem, o site se repete e o visitante sente que já viu aquilo.
+
+- **Espelho**: a roda. Objeto renderizado, com volume, luz e textura.
+- **Método**: a obra (`ferramentas/obra.py`). Prancha técnica, traço puro, em
+  isometria. Uma camada por etapa, na ordem em que se constrói: terreno,
+  fundação, pilares, laje, guarda-corpo e cotas.
+
+A obra se desenha por `stroke-dashoffset` com `pathLength="1"`, então mexer na
+geometria não pede recalcular comprimento de caminho nenhum. Cada camada sai em
+dois caminhos sobrepostos: o de baixo assenta em linha muda e fica, o de cima
+passa em ciano só enquanto a etapa está em foco.
+
+O método é a **faixa escura da segunda metade** (`tom-azul`), em teste desde
+18/09/2026. Se for para voltar ao claro, é trocar a classe e o `data-chao` da
+seção: o resto (emenda entre faixas, cor do texto, chips) se ajusta sozinho
+pelos tokens de tom.
+
+## O teto do vetor
+
+A roda já levou três passadas: luz de uma fonte só em `userSpaceOnUse`,
+especular no ombro, oclusão nos encontros, luz de recorte, faceta escura na
+lâmina, banda de rodagem deslocada atrás (que é o que tira a leitura de ícone)
+e grão de borracha em azulejo de 48px.
+
+**Ainda é desenho, não fotografia, e não vai virar.** Gradiente de SVG tem teto.
+Para a roda ser real precisa de fotografia de roda isolada e de frente, com
+licença, em `Fontes/`. Não prometer o contrário.
+
+Cuidado com o grão: azulejo grande demais vira pedrisco. A 18 unidades do
+viewBox ele some como grão; a 72 ele aparece como lixa.
+
 ## A barra de rolagem da casa
 
 Substitui a do sistema só em ponteiro fino (`hover:hover and pointer:fine`).

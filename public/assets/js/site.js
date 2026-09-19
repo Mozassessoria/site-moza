@@ -190,12 +190,12 @@
     var oM    = trilho.querySelector('.portal__m');
     var oLuz  = trilho.querySelector('.portal__luz');
     var roda  = trilho.querySelector('.roda');
+    var obra  = trilho.querySelector('.obra');
     var cenas = [].slice.call(trilho.querySelectorAll('.portal__cena'));
     var comM  = trilho.hasAttribute('data-portal-m');
     var passo = parseInt(trilho.getAttribute('data-portal-passo') || '100', 10);
     var vagas = cenas.length + (comM ? 1 : 0);
     var s     = 1 / vagas;                         // quanto vale uma vaga
-    var monta = roda && roda.classList.contains('roda--monta');
 
     if (!calmo) {
       /* Só quem vai animar vira palco travado. Quem pediu menos movimento fica
@@ -229,20 +229,21 @@
         po(c, '--borr', (16 * (1 - ent) + 15 * sai).toFixed(2));
       });
 
-      if (!roda) return;
-      if (monta) {
-        /* O método monta a roda na ordem em que a gente trabalha: o cubo
-           primeiro, cada etapa prende um par de raios nele, e o pneu entra por
-           último, na Jornada, que é a etapa de sustentar o resultado. */
-        po(roda, '--cubo', suave(fatia(p, s * 1.05, s * 1.75)).toFixed(3));
-        po(roda, '--a',    suave(fatia(p, s * 2.0,  s * 5.4)).toFixed(3));
-        for (var k = 0; k < 4; k++) {
-          po(roda, '--r' + (k + 1),
-             suave(fatia(p, s * (k + 2.05), s * (k + 2.65))).toFixed(3));
+      if (obra) {
+        /* A obra sobe uma camada por etapa, na ordem em que se constrói. A
+           camada n mora na vaga n: a vaga 0 é a abertura da seção. */
+        for (var n = 1; n <= 5; n++) {
+          po(obra, '--e' + n, suave(fatia(p, s * (n + .05), s * (n + .8))).toFixed(3));
+          /* O foco é um sino em volta do meio da vaga: o ciano passa enquanto a
+             etapa está sendo lida e devolve o traço para a linha muda depois. */
+          po(obra, '--a' + n,
+             suave(Math.max(0, 1 - Math.abs(p - s * (n + .5)) / (s * .85))).toFixed(3));
         }
-        po(roda, '--pneu',  suave(fatia(p, s * 5.15, s * 5.75)).toFixed(3));
-        po(roda, '--faixa', suave(fatia(p, s * 5.45, s * 5.9)).toFixed(3));
-      } else {
+        return;
+      }
+
+      if (!roda) return;
+      {
         /* O espelho monta a roda inteira menos o cubo, faz ela tremer, mostra
            o buraco no meio e manda ela embora rolando para a direita. */
         po(roda, '--cubo', '0');

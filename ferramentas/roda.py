@@ -37,10 +37,25 @@ def _quad(ang, ri, ro, wi, wo):
             (cox - px*wo, coy - py*wo), (cix - px*wi, ciy - py*wi))
 
 def raio(ang):
-    """A lâmina: estreita no cubo, larga no aro, com um degrau no pé."""
-    A, B, Cc, D = _quad(ang, 54, 152, 6.5, 13)
+    """A lâmina: estreita no cubo, larga no aro."""
+    A, B, Cc, D = _quad(ang, 54, 152, 7.5, 14.5)
     return ('M%.1f,%.1f L%.1f,%.1f L%.1f,%.1f L%.1f,%.1f Z'
             % (A[0],A[1], B[0],B[1], Cc[0],Cc[1], D[0],D[1]))
+
+
+def faceta(ang):
+    """Metade da lâmina, do lado oposto à luz. Chapa plana não existe: raio de
+       aro tem quina no meio, e é a quina que diz que aquilo é metal dobrado."""
+    A, B, Cc, D = _quad(ang, 54, 152, 7.5, 14.5)
+    mi, mo = pt(ang, 54), pt(ang, 152)
+    n1 = (ang + 90) % 360
+    perto = math.cos(math.radians(n1 - LUZ)) > 0     # o lado A-B está na luz?
+    if perto:
+        P, Q = Cc, D                                 # a faceta escura é a outra
+    else:
+        P, Q = B, A
+    return ('M%.1f,%.1f L%.1f,%.1f L%.1f,%.1f L%.1f,%.1f Z'
+            % (mi[0],mi[1], mo[0],mo[1], P[0],P[1], Q[0],Q[1]))
 
 def aresta(ang, luz=True):
     """Fio de luz na face voltada para a fonte, fio escuro na face oposta.
@@ -57,11 +72,20 @@ def aresta(ang, luz=True):
 def montar(variante):
     L = []; A = L.append
     A('<svg class="roda roda--%s" viewBox="0 0 460 460" aria-hidden="true">' % variante)
-    A('  <ellipse class="roda__chao" cx="230" cy="430" rx="170" ry="20"/>')
+    A('  <g class="roda__vista">')
+    A('    <ellipse class="roda__chao" cx="230" cy="430" rx="170" ry="20"/>')
+    # A largura do pneu: o mesmo anel deslocado atrás. Sem isto a roda é um
+    # disco chapado de frente, que é o que faz desenho parecer ícone.
+    A('    <g class="roda__profundidade">')
+    A('      <circle class="roda__banda" cx="256" cy="216" r="194"/>')
+    A('      <circle class="roda__bandaLuz" cx="256" cy="216" r="222"/>')
+    A('    </g>')
     A('  <g class="roda__corpo">')
 
     # ---- PNEU ------------------------------------------------------------
     A('    <circle class="roda__pneu" cx="230" cy="230" r="194"/>')
+    # Grão da borracha, em textura que repete. Sem isto o flanco fica plástico.
+    A('    <circle class="roda__grao" cx="230" cy="230" r="194"/>')
     # Relevo do flanco: anéis concêntricos finos, como borracha moldada.
     for r in (172, 182, 206, 216):
         A('    <circle class="roda__flanco" cx="230" cy="230" r="%d"/>' % r)
@@ -93,6 +117,8 @@ def montar(variante):
         for ang in par:
             A('      <path class="roda__raio" d="%s"/>' % raio(ang))
         for ang in par:
+            A('      <path class="roda__faceta" d="%s"/>' % faceta(ang))
+        for ang in par:
             A('      <path class="roda__raioSombra" d="%s"/>' % aresta(ang, luz=False))
             A('      <path class="roda__raioLuz" d="%s"/>' % aresta(ang, luz=True))
         A('    </g>')
@@ -106,6 +132,7 @@ def montar(variante):
     else:
         A('    <circle class="roda__oco" cx="230" cy="230" r="52"/>')
 
+    A('  </g>')
     A('  </g>')
     A('</svg>')
     return '\n        '.join(L)

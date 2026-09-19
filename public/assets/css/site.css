@@ -403,7 +403,7 @@
 .hero__textura{position:absolute;inset:-7%;z-index:-2;display:block;
   pointer-events:none;overflow:hidden}
 .hero__textura img{width:100%;height:100%;object-fit:cover;object-position:50% 56%;
-  filter:grayscale(.62) brightness(.70) contrast(1.07);opacity:.95;
+  filter:grayscale(.66) brightness(.50) contrast(1.08);opacity:.86;
   transform:scale(var(--zoom,1));transform-origin:50% 56%;
   will-change:transform}
 /* No retrato a foto é deitada e o corte come as laterais. Puxar para a roda,
@@ -417,8 +417,8 @@
    contraste. */
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:
-    linear-gradient(to bottom, rgba(5,7,10,0) 30%, rgba(5,7,10,.55) 56%, rgba(5,7,10,.66) 76%, rgba(5,7,10,.90) 100%),
-    radial-gradient(122% 96% at 50% 44%, rgba(5,7,10,.22) 0%, rgba(5,7,10,.62) 52%, rgba(5,7,10,.92) 86%)}
+    linear-gradient(to bottom, rgba(5,7,10,0) 26%, rgba(5,7,10,.62) 54%, rgba(5,7,10,.74) 76%, rgba(5,7,10,.94) 100%),
+    radial-gradient(122% 96% at 50% 44%, rgba(5,7,10,.40) 0%, rgba(5,7,10,.76) 52%, rgba(5,7,10,.96) 86%)}
 
 /* --------------------------------------------------------------------------
    O cabeçalho acompanha o tom da seção
@@ -623,9 +623,10 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
 .portal__palco > .portal__bruma,.portal__palco > .portal__luz{display:none}
 .portal__palco > .portal__cena{margin-inline:auto;
   padding-block:clamp(var(--s4),5vw,var(--s6))}
-.portal__palco:not(.portal--vivo) > .roda{width:min(62vw,380px)}
+.portal__palco:not(.portal--vivo) > .roda,
+.portal__palco:not(.portal--vivo) > .obra{width:min(62vw,380px)}
 .portal__palco:not(.portal--vivo) > .portal__m{width:min(52vw,420px)}
-.portal__palco > .roda,.portal__palco > .portal__m{
+.portal__palco > .roda,.portal__palco > .obra,.portal__palco > .portal__m{
   margin:0 auto clamp(var(--s4),5vw,var(--s6))}
 
 /* Com JS */
@@ -669,7 +670,8 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
   .portal--vivo > .portal__cena h2,
   .portal--vivo > .portal__cena h3,
   .portal--vivo > .portal__cena p{margin-inline:0}
-  .portal--vivo > .roda{grid-area:1/2;justify-self:start;margin-left:-7%}
+  .portal--vivo > .roda,
+  .portal--vivo > .obra{grid-area:1/2;justify-self:start;margin-left:-7%}
   .portal--vivo > .portal__m,
   .portal--vivo > .portal__bruma,
   .portal--vivo > .portal__luz{grid-area:1/1/2/3;justify-self:center}
@@ -682,7 +684,8 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
      largura, e o anel acabaria cortando a frase. Duas linhas resolvem. */
   .portal--vivo{grid-template-rows:auto auto;
     align-content:center;justify-items:center;gap:clamp(var(--s3),5vw,var(--s5))}
-  .portal--vivo > .roda{grid-area:1/1;align-self:end;width:min(74vw,340px)}
+  .portal--vivo > .roda,
+  .portal--vivo > .obra{grid-area:1/1;align-self:end}
   .portal--vivo > .portal__cena{grid-area:2/1;align-self:start}
   .portal--vivo > .portal__m,
   .portal--vivo > .portal__bruma,
@@ -725,8 +728,26 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
    -------------------------------------------------------------------------- */
 .roda{width:min(54vw,780px);height:auto;pointer-events:none;overflow:visible;
   --pneu:1;--faixa:1;--a:1;--r1:1;--r2:1;--r3:1;--r4:1;--cubo:1;--oco:1;--sai:0}
+/* A roda não é vista de frente. Um giro pequeno e um achatamento no eixo Y
+   colocam ela num ângulo, e é isso que separa objeto de ícone: disco perfeito
+   e simétrico o olho lê como símbolo, não como coisa. */
+.roda__vista{transform-origin:230px 230px;transform:rotate(-3.5deg) scaleY(.93)}
 .roda__corpo{transform-origin:230px 230px;
   transform:translateX(calc(var(--sai,0) * 760px)) rotate(calc(var(--sai,0) * 430deg))}
+
+/* A largura do pneu: o mesmo anel deslocado atrás. O meio-crescente que
+   aparece entre os dois é a banda de rodagem, e ela não gira junto com a roda
+   porque o ângulo de quem olha não muda quando a roda anda. */
+.roda__profundidade{opacity:var(--pneu,0);
+  transform:translateX(calc(var(--sai,0) * 760px))}
+.roda__banda{fill:none;stroke:url(#luzBanda);stroke-width:62}
+.roda__bandaLuz{fill:none;stroke:rgba(196,222,248,.16);stroke-width:2}
+
+/* Grão da borracha, em azulejo que repete. Custa uma imagem de 3KB e resolve
+   o que gradiente nenhum resolve: superfície lisa demais é o que faz vetor
+   parecer desenho. feTurbulence daria o mesmo, e recalcularia a cada quadro. */
+.roda__grao{fill:none;stroke:url(#grao);stroke-width:62;
+  mix-blend-mode:overlay;opacity:calc(var(--pneu,0) * .16)}
 /* A sombra acompanha a saída mas não gira: sombra de chão não roda. */
 .roda__chao{fill:rgba(10,32,64,.24);filter:blur(17px);
   opacity:calc(var(--pneu,0) * .9);
@@ -767,7 +788,7 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
   transform:scale(calc(.88 + var(--cubo,0) * .12))}
 
 /* ---- aro ---- */
-.roda__aro{fill:none;stroke:url(#luzAro);stroke-width:12;
+.roda__aro{fill:none;stroke:url(#luzAro);stroke-width:10;opacity:.78;
   stroke-dasharray:993;stroke-dashoffset:calc((1 - var(--a,0)) * 993px);
   transform:rotate(-90deg);transform-origin:230px 230px}
 .roda__aroLuz{fill:none;stroke:rgba(244,250,255,.5);stroke-width:3;
@@ -779,6 +800,9 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
   transform:rotate(calc((1 - var(--r,0)) * -13deg));
   opacity:var(--r,0)}
 .roda__raio{fill:url(#luzRaio)}
+/* Metade da lâmina no escuro. Raio de aro tem quina no meio, e é a quina que
+   diz que aquilo é chapa dobrada e não um retângulo pintado. */
+.roda__faceta{fill:rgba(2,5,9,.24)}
 /* Fio de luz na face voltada para a fonte, fio escuro na oposta. É o que dá
    espessura à lâmina sem desenhar espessura nenhuma. */
 .roda__raioLuz{fill:none;stroke:rgba(238,246,255,.55);stroke-width:1.6;
@@ -859,4 +883,38 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
   @media (prefers-reduced-motion:reduce){
     .rolagem::before,.rolagem__punho,.rolagem__marca{transition:none}
   }
+}
+
+/* --------------------------------------------------------------------------
+   A obra · o desenho do método
+   Prancha técnica, traço puro. É o oposto da roda de propósito: a roda é
+   objeto com volume e luz, esta é linha. Duas seções com a mesma mecânica de
+   rolagem não podem ter a mesma imagem, senão o site se repete.
+
+   Os traços se desenham por stroke-dashoffset com pathLength="1", então mexer
+   na geometria não pede recalcular comprimento nenhum.
+
+   Cada camada sai em dois caminhos sobrepostos: o de baixo assenta em linha
+   muda e fica, o de cima passa em ciano só enquanto a etapa está em foco. É
+   assim que a etapa atual se destaca sem apagar o que já foi construído.
+   -------------------------------------------------------------------------- */
+.obra{width:min(46vw,620px);height:auto;pointer-events:none;overflow:visible;
+  --e1:1;--e2:1;--e3:1;--e4:1;--e5:1;--a1:0;--a2:0;--a3:0;--a4:0;--a5:0}
+.obra__corpo{transform-origin:260px 320px}
+
+.obra__traco,.obra__foco{
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--e,0))}
+.obra__traco{stroke:rgba(206,229,252,.46);stroke-width:1.6;
+  vector-effect:non-scaling-stroke}
+.obra__foco{stroke:var(--ciano);stroke-width:2.2;opacity:var(--a,0);
+  vector-effect:non-scaling-stroke}
+
+/* O terreno é malha de referência, não peça: fica mais apagado que o resto e
+   não ganha foco, senão rouba a cena das camadas que importam. */
+.obra__camada--terreno .obra__traco{stroke:rgba(206,229,252,.20);stroke-width:1}
+.obra__camada--terreno .obra__foco{stroke-width:1.4;opacity:calc(var(--a,0) * .55)}
+
+@media (max-width:899px){
+  .obra{width:min(74vw,330px)}
 }

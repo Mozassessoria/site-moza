@@ -113,9 +113,15 @@
       <div class="portal__palco">
         <div class="portal__bruma" aria-hidden="true"></div>
         <svg class="roda roda--oca" viewBox="0 0 460 460" aria-hidden="true">
-          <ellipse class="roda__chao" cx="230" cy="430" rx="170" ry="20"/>
+          <g class="roda__vista">
+            <ellipse class="roda__chao" cx="230" cy="430" rx="170" ry="20"/>
+            <g class="roda__profundidade">
+              <circle class="roda__banda" cx="256" cy="216" r="194"/>
+              <circle class="roda__bandaLuz" cx="256" cy="216" r="222"/>
+            </g>
           <g class="roda__corpo">
             <circle class="roda__pneu" cx="230" cy="230" r="194"/>
+            <circle class="roda__grao" cx="230" cy="230" r="194"/>
             <circle class="roda__flanco" cx="230" cy="230" r="172"/>
             <circle class="roda__flanco" cx="230" cy="230" r="182"/>
             <circle class="roda__flanco" cx="230" cy="230" r="206"/>
@@ -132,38 +138,47 @@
             <circle class="roda__aro" cx="230" cy="230" r="158"/>
             <path class="roda__aroLuz" d="M72.9,213.5 A158.0,158.0 0 0 1 224.5,72.1"/>
             <g class="roda__par" style="--r:var(--r1,0)">
-              <path class="roda__raio" d="M284.0,236.5 L382.0,243.0 L382.0,217.0 L284.0,223.5 Z"/>
-              <path class="roda__raio" d="M176.0,223.5 L78.0,217.0 L78.0,243.0 L176.0,236.5 Z"/>
+              <path class="roda__raio" d="M284.0,237.5 L382.0,244.5 L382.0,215.5 L284.0,222.5 Z"/>
+              <path class="roda__raio" d="M176.0,222.5 L78.0,215.5 L78.0,244.5 L176.0,237.5 Z"/>
+              <path class="roda__faceta" d="M284.0,230.0 L382.0,230.0 L382.0,244.5 L284.0,237.5 Z"/>
+              <path class="roda__faceta" d="M176.0,230.0 L78.0,230.0 L78.0,244.5 L176.0,237.5 Z"/>
               <path class="roda__raioSombra" d="M284.0,236.5 L382.0,243.0"/>
               <path class="roda__raioLuz" d="M284.0,223.5 L382.0,217.0"/>
               <path class="roda__raioSombra" d="M176.0,236.5 L78.0,243.0"/>
               <path class="roda__raioLuz" d="M176.0,223.5 L78.0,217.0"/>
             </g>
             <g class="roda__par" style="--r:var(--r2,0)">
-              <path class="roda__raio" d="M263.6,272.8 L328.3,346.7 L346.7,328.3 L272.8,263.6 Z"/>
-              <path class="roda__raio" d="M196.4,187.2 L131.7,113.3 L113.3,131.7 L187.2,196.4 Z"/>
+              <path class="roda__raio" d="M262.9,273.5 L327.2,347.7 L347.7,327.2 L273.5,262.9 Z"/>
+              <path class="roda__raio" d="M197.1,186.5 L132.8,112.3 L112.3,132.8 L186.5,197.1 Z"/>
+              <path class="roda__faceta" d="M268.2,268.2 L337.5,337.5 L347.7,327.2 L273.5,262.9 Z"/>
+              <path class="roda__faceta" d="M191.8,191.8 L122.5,122.5 L112.3,132.8 L186.5,197.1 Z"/>
               <path class="roda__raioSombra" d="M272.8,263.6 L346.7,328.3"/>
               <path class="roda__raioLuz" d="M263.6,272.8 L328.3,346.7"/>
               <path class="roda__raioSombra" d="M187.2,196.4 L113.3,131.7"/>
               <path class="roda__raioLuz" d="M196.4,187.2 L131.7,113.3"/>
             </g>
             <g class="roda__par" style="--r:var(--r3,0)">
-              <path class="roda__raio" d="M223.5,284.0 L217.0,382.0 L243.0,382.0 L236.5,284.0 Z"/>
-              <path class="roda__raio" d="M236.5,176.0 L243.0,78.0 L217.0,78.0 L223.5,176.0 Z"/>
+              <path class="roda__raio" d="M222.5,284.0 L215.5,382.0 L244.5,382.0 L237.5,284.0 Z"/>
+              <path class="roda__raio" d="M237.5,176.0 L244.5,78.0 L215.5,78.0 L222.5,176.0 Z"/>
+              <path class="roda__faceta" d="M230.0,284.0 L230.0,382.0 L244.5,382.0 L237.5,284.0 Z"/>
+              <path class="roda__faceta" d="M230.0,176.0 L230.0,78.0 L244.5,78.0 L237.5,176.0 Z"/>
               <path class="roda__raioSombra" d="M236.5,284.0 L243.0,382.0"/>
               <path class="roda__raioLuz" d="M223.5,284.0 L217.0,382.0"/>
               <path class="roda__raioSombra" d="M236.5,176.0 L243.0,78.0"/>
               <path class="roda__raioLuz" d="M223.5,176.0 L217.0,78.0"/>
             </g>
             <g class="roda__par" style="--r:var(--r4,0)">
-              <path class="roda__raio" d="M187.2,263.6 L113.3,328.3 L131.7,346.7 L196.4,272.8 Z"/>
-              <path class="roda__raio" d="M272.8,196.4 L346.7,131.7 L328.3,113.3 L263.6,187.2 Z"/>
+              <path class="roda__raio" d="M186.5,262.9 L112.3,327.2 L132.8,347.7 L197.1,273.5 Z"/>
+              <path class="roda__raio" d="M273.5,197.1 L347.7,132.8 L327.2,112.3 L262.9,186.5 Z"/>
+              <path class="roda__faceta" d="M191.8,268.2 L122.5,337.5 L132.8,347.7 L197.1,273.5 Z"/>
+              <path class="roda__faceta" d="M268.2,191.8 L337.5,122.5 L347.7,132.8 L273.5,197.1 Z"/>
               <path class="roda__raioSombra" d="M196.4,272.8 L131.7,346.7"/>
               <path class="roda__raioLuz" d="M187.2,263.6 L113.3,328.3"/>
               <path class="roda__raioSombra" d="M272.8,196.4 L346.7,131.7"/>
               <path class="roda__raioLuz" d="M263.6,187.2 L328.3,113.3"/>
             </g>
             <circle class="roda__oco" cx="230" cy="230" r="52"/>
+          </g>
           </g>
         </svg>
         <svg class="marcaM portal__m" viewBox="0 0 1081 613" aria-hidden="true">
@@ -200,10 +215,10 @@
                 <stop offset="1" stop-color="#93A0AD"/>
             </linearGradient>
             <linearGradient id="luzRaio" gradientUnits="userSpaceOnUse" x1="67" y1="67" x2="393" y2="393">
-                <stop offset="0" stop-color="#6E7C8A"/>
-                <stop offset="0.32" stop-color="#252D35"/>
-                <stop offset="0.7" stop-color="#171C22"/>
-                <stop offset="1" stop-color="#3C4650"/>
+              <stop offset="0" stop-color="#A9B8C6"/>
+              <stop offset="0.34" stop-color="#5A6773"/>
+              <stop offset="0.70" stop-color="#2B333C"/>
+              <stop offset="1" stop-color="#6B7885"/>
             </linearGradient>
             <linearGradient id="luzPoco" gradientUnits="userSpaceOnUse" x1="67" y1="67" x2="393" y2="393">
                 <stop offset="0" stop-color="#283038"/>
@@ -225,6 +240,14 @@
               <stop offset=".45" stop-color="#9AA7B4"/>
               <stop offset="1" stop-color="#333B44"/>
             </radialGradient>
+            <linearGradient id="luzBanda" gradientUnits="userSpaceOnUse" x1="67" y1="67" x2="393" y2="393">
+              <stop offset="0" stop-color="#1B222A"/>
+              <stop offset=".45" stop-color="#0C1015"/>
+              <stop offset="1" stop-color="#05070A"/>
+            </linearGradient>
+            <pattern id="grao" patternUnits="userSpaceOnUse" width="18" height="18">
+              <image href="assets/img/textura/borracha.png" width="18" height="18"/>
+            </pattern>
           </defs>
           <path fill="url(#aco)" d="M 0,450.56 L 31.88,568.97 L 398.88,191.66 L 539.22,613 L 922.62,190.09 L 1003.79,481.69 L 1081,402.96 L 968.23,0 L 783.86,186.18 L 577.65,417.39 L 441.47,2.66 Z"/>
         </svg>
@@ -296,69 +319,40 @@
   </section>
 
   <!-- O MÉTODO -->
-  <section class="secao secao--portal tom-cinza" id="metodo" data-chao="#F2F5F9" data-tom="claro">
+  <section class="secao secao--portal tom-azul" id="metodo" data-chao="#0A2340" data-tom="escuro">
     <!-- O PORTAL DO MÉTODO
-         A outra metade da história do espelho. Lá a roda aparece sem centro; aqui
-         o centro é a primeira coisa a existir, e cada raio se prende nele na
-         ordem em que a gente trabalha. A mesma mecânica, o argumento oposto. -->
+         Mesma mecânica de rolagem do espelho, desenho oposto. Lá é objeto
+         renderizado, com volume e luz; aqui é prancha técnica, traço puro. Duas
+         seções com o mesmo movimento não podem ter a mesma imagem.
+
+         Cada etapa levanta uma camada da obra, na ordem em que se constrói:
+         terreno, fundação, pilares, laje, guarda-corpo e cotas. O desenho sai
+         de ferramentas/obra.py. -->
     <div class="portal" data-portal data-portal-passo="90">
       <div class="portal__palco">
         <div class="portal__bruma" aria-hidden="true"></div>
-        <svg class="roda roda--monta" viewBox="0 0 460 460" aria-hidden="true">
-          <ellipse class="roda__chao" cx="230" cy="430" rx="170" ry="20"/>
-          <g class="roda__corpo">
-            <circle class="roda__pneu" cx="230" cy="230" r="194"/>
-            <circle class="roda__flanco" cx="230" cy="230" r="172"/>
-            <circle class="roda__flanco" cx="230" cy="230" r="182"/>
-            <circle class="roda__flanco" cx="230" cy="230" r="206"/>
-            <circle class="roda__flanco" cx="230" cy="230" r="216"/>
-            <path class="roda__brilhoPneu" d="M20.1,237.3 A210.0,210.0 0 0 1 200.8,22.0"/>
-            <path class="roda__recorte" d="M446.9,260.5 A219.0,219.0 0 0 1 290.4,440.5"/>
-            <circle class="roda__oclusao" cx="230" cy="230" r="166"/>
-            <path class="roda__faixa" d="M43.5,176.5 A194.0,194.0 0 0 1 308.9,52.8"/>
-            <path class="roda__faixa" d="M398.0,133.0 A194.0,194.0 0 0 1 308.9,407.2"/>
-            <circle class="roda__poco" cx="230" cy="230" r="152"/>
-            <circle class="roda__disco" cx="230" cy="230" r="118"/>
-            <circle class="roda__furos" cx="230" cy="230" r="98"/>
-            <circle class="roda__discoBorda" cx="230" cy="230" r="118"/>
-            <circle class="roda__aro" cx="230" cy="230" r="158"/>
-            <path class="roda__aroLuz" d="M72.9,213.5 A158.0,158.0 0 0 1 224.5,72.1"/>
-            <g class="roda__par" style="--r:var(--r1,0)">
-              <path class="roda__raio" d="M284.0,236.5 L382.0,243.0 L382.0,217.0 L284.0,223.5 Z"/>
-              <path class="roda__raio" d="M176.0,223.5 L78.0,217.0 L78.0,243.0 L176.0,236.5 Z"/>
-              <path class="roda__raioSombra" d="M284.0,236.5 L382.0,243.0"/>
-              <path class="roda__raioLuz" d="M284.0,223.5 L382.0,217.0"/>
-              <path class="roda__raioSombra" d="M176.0,236.5 L78.0,243.0"/>
-              <path class="roda__raioLuz" d="M176.0,223.5 L78.0,217.0"/>
+        <svg class="obra" viewBox="30 70 460 400" aria-hidden="true">
+          <g class="obra__corpo">
+            <g class="obra__camada obra__camada--terreno">
+              <path class="obra__traco" style="--e:var(--e1,0)" pathLength="1" d="M260.0,210.0 L450.5,320.0 M260.0,210.0 L69.5,320.0 M221.9,232.0 L412.4,342.0 M298.1,232.0 L107.6,342.0 M183.8,254.0 L374.3,364.0 M336.2,254.0 L145.7,364.0 M145.7,276.0 L336.2,386.0 M374.3,276.0 L183.8,386.0 M107.6,298.0 L298.1,408.0 M412.4,298.0 L221.9,408.0 M69.5,320.0 L260.0,430.0 M450.5,320.0 L260.0,430.0"/>
+      <path class="obra__foco"  style="--e:var(--e1,0);--a:var(--a1,0)" pathLength="1" d="M260.0,210.0 L450.5,320.0 M260.0,210.0 L69.5,320.0 M221.9,232.0 L412.4,342.0 M298.1,232.0 L107.6,342.0 M183.8,254.0 L374.3,364.0 M336.2,254.0 L145.7,364.0 M145.7,276.0 L336.2,386.0 M374.3,276.0 L183.8,386.0 M107.6,298.0 L298.1,408.0 M412.4,298.0 L221.9,408.0 M69.5,320.0 L260.0,430.0 M450.5,320.0 L260.0,430.0"/>
             </g>
-            <g class="roda__par" style="--r:var(--r2,0)">
-              <path class="roda__raio" d="M263.6,272.8 L328.3,346.7 L346.7,328.3 L272.8,263.6 Z"/>
-              <path class="roda__raio" d="M196.4,187.2 L131.7,113.3 L113.3,131.7 L187.2,196.4 Z"/>
-              <path class="roda__raioSombra" d="M272.8,263.6 L346.7,328.3"/>
-              <path class="roda__raioLuz" d="M263.6,272.8 L328.3,346.7"/>
-              <path class="roda__raioSombra" d="M187.2,196.4 L113.3,131.7"/>
-              <path class="roda__raioLuz" d="M196.4,187.2 L131.7,113.3"/>
+            <g class="obra__camada">
+              <path class="obra__traco" style="--e:var(--e2,0)" pathLength="1" d="M260.0,260.0 L363.9,320.0 L260.0,380.0 L156.1,320.0 Z M260.0,260.0 L260.0,246.0 M156.1,320.0 L156.1,306.0 M363.9,320.0 L363.9,306.0 M260.0,380.0 L260.0,366.0"/>
+      <path class="obra__foco"  style="--e:var(--e2,0);--a:var(--a2,0)" pathLength="1" d="M260.0,260.0 L363.9,320.0 L260.0,380.0 L156.1,320.0 Z M260.0,260.0 L260.0,246.0 M156.1,320.0 L156.1,306.0 M363.9,320.0 L363.9,306.0 M260.0,380.0 L260.0,366.0"/>
             </g>
-            <g class="roda__par" style="--r:var(--r3,0)">
-              <path class="roda__raio" d="M223.5,284.0 L217.0,382.0 L243.0,382.0 L236.5,284.0 Z"/>
-              <path class="roda__raio" d="M236.5,176.0 L243.0,78.0 L217.0,78.0 L223.5,176.0 Z"/>
-              <path class="roda__raioSombra" d="M236.5,284.0 L243.0,382.0"/>
-              <path class="roda__raioLuz" d="M223.5,284.0 L217.0,382.0"/>
-              <path class="roda__raioSombra" d="M236.5,176.0 L243.0,78.0"/>
-              <path class="roda__raioLuz" d="M223.5,176.0 L217.0,78.0"/>
+            <g class="obra__camada">
+              <path class="obra__traco" style="--e:var(--e3,0)" pathLength="1" d="M260.0,260.0 L260.0,150.0 M156.1,320.0 L156.1,210.0 M363.9,320.0 L363.9,210.0 M260.0,380.0 L260.0,270.0"/>
+      <path class="obra__foco"  style="--e:var(--e3,0);--a:var(--a3,0)" pathLength="1" d="M260.0,260.0 L260.0,150.0 M156.1,320.0 L156.1,210.0 M363.9,320.0 L363.9,210.0 M260.0,380.0 L260.0,270.0"/>
             </g>
-            <g class="roda__par" style="--r:var(--r4,0)">
-              <path class="roda__raio" d="M187.2,263.6 L113.3,328.3 L131.7,346.7 L196.4,272.8 Z"/>
-              <path class="roda__raio" d="M272.8,196.4 L346.7,131.7 L328.3,113.3 L263.6,187.2 Z"/>
-              <path class="roda__raioSombra" d="M196.4,272.8 L131.7,346.7"/>
-              <path class="roda__raioLuz" d="M187.2,263.6 L113.3,328.3"/>
-              <path class="roda__raioSombra" d="M272.8,196.4 L346.7,131.7"/>
-              <path class="roda__raioLuz" d="M263.6,187.2 L328.3,113.3"/>
+            <g class="obra__camada">
+              <path class="obra__traco" style="--e:var(--e4,0)" pathLength="1" d="M260.0,150.0 L363.9,210.0 L260.0,270.0 L156.1,210.0 Z M208.0,180.0 L312.0,240.0 M312.0,180.0 L208.0,240.0"/>
+      <path class="obra__foco"  style="--e:var(--e4,0);--a:var(--a4,0)" pathLength="1" d="M260.0,150.0 L363.9,210.0 L260.0,270.0 L156.1,210.0 Z M208.0,180.0 L312.0,240.0 M312.0,180.0 L208.0,240.0"/>
             </g>
-            <circle class="roda__cubo" cx="230" cy="230" r="52"/>
-            <circle class="roda__cuboLuz" cx="230" cy="230" r="52"/>
-            <circle class="roda__porca" cx="230" cy="230" r="17"/>
-            <circle class="roda__porcaLuz" cx="223" cy="223" r="6"/>
+            <g class="obra__camada">
+              <path class="obra__traco" style="--e:var(--e5,0)" pathLength="1" d="M260.0,110.0 L363.9,170.0 L260.0,230.0 L156.1,170.0 Z M260.0,150.0 L260.0,110.0 M156.1,210.0 L156.1,170.0 M363.9,210.0 L363.9,170.0 M260.0,270.0 L260.0,230.0 M97.2,354.0 L201.1,414.0 M105.8,349.0 L88.5,359.0 M209.8,409.0 L192.5,419.0 M318.9,414.0 L318.9,264.0 M310.2,409.0 L327.5,419.0 M310.2,259.0 L327.5,269.0"/>
+      <path class="obra__foco"  style="--e:var(--e5,0);--a:var(--a5,0)" pathLength="1" d="M260.0,110.0 L363.9,170.0 L260.0,230.0 L156.1,170.0 Z M260.0,150.0 L260.0,110.0 M156.1,210.0 L156.1,170.0 M363.9,210.0 L363.9,170.0 M260.0,270.0 L260.0,230.0 M97.2,354.0 L201.1,414.0 M105.8,349.0 L88.5,359.0 M209.8,409.0 L192.5,419.0 M318.9,414.0 L318.9,264.0 M310.2,409.0 L327.5,419.0 M310.2,259.0 L327.5,269.0"/>
+            </g>
           </g>
         </svg>
         <div class="portal__luz" aria-hidden="true"></div>
