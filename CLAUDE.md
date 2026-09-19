@@ -66,19 +66,42 @@ python3 -m http.server 8899 &
 ## O acervo (`#acervo`)
 
 Padrão "Explore os detalhes" da Apple: tópicos clicáveis de um lado, a obra do
-outro. É `role="tablist"` de verdade, com seta navegando entre abas.
+outro. É `role="tablist"` de verdade, com seta navegando entre abas. O JS acha
+as abas e os grupos por índice, então acrescentar ou tirar uma aba não pede
+mexer em JS.
 
-As imagens são **dobras de sites de clientes que estão no ar**, recortadas dos
-prints em `../../Prints Sites Portfólio/` por `bash ferramentas/portfolio.sh`.
-O print original tem a página inteira (até 16.000px); o que serve de prova é a
-primeira tela, que é o que o visitante do cliente vê.
+**A produção de conteúdo vem primeiro, a vitrine por último** (mudança de
+18/09/2026, pedido do Kauan). O que a Moza mais faz é posicionamento e
+conteúdo; print de site era a primeira coisa que aparecia e dava a impressão
+errada do que a casa vende.
 
-**Só entra obra que está no ar.** A frase da seção promete isso: "Tudo aqui
-está no ar, em cliente real." Se tirar um site do ar, tira do acervo.
+- **Aba 1, Produção de conteúdo**: a série do Panamera da Garage 665, dez
+  vistas, recortadas de `next-cerebro/marketing/estudio/serie-panamera-aprovada.jpg`
+  por `ferramentas/serie.py`. Grade de três colunas e cartão sem legenda: é um
+  trabalho só em dez vistas, e legenda por foto repetiria a mesma informação
+  dez vezes. A nota em cima diz o que é, uma vez.
+- **Aba 2, Vitrine digital**: os sites de cliente. **Só entra obra que está no
+  ar.** Se tirar um site do ar, tira do acervo.
+
+### O que NÃO pode entrar no acervo
+
+Em `next-cerebro/marketing/estudio/masters/` existem masters de Via Brasil, PP
+Automóveis e Santo André que parecem prova de produção. **Não são.** O
+`*-usage.json` de cada um diz `status: candidata_gerada_nao_aprovada` e
+`modelo: gpt-image-*`: são candidatas geradas por IA no desenvolvimento do
+pipeline, nunca aprovadas nem entregues. Publicar aquilo como trabalho
+entregue seria falso.
+
+Os arquivos em `estudio/referencias/` (Paíto Motors, Natta Motors) são **fotos
+de concorrentes**, lidas do estoque público deles para estudo de padrão. Nunca
+vão para o site.
+
+**Antes de subir qualquer peça do estúdio, ler o `-usage.json`.** Hoje a única
+marcada como entregue e aprovada é a série do Panamera (Garage 665, 08/09/2026).
 
 Cada tópico tem cor própria, **toda dentro da família do azul**: `#0071AD`,
 `#0096DC`, `#00B4FF`. Dá vida sem abrir um segundo acento, que o brandbook
-proíbe. Hue estranho (laranja, roxo como a Apple usa) quebraria a regra.
+proíbe.
 
 ## Os portais (o espelho e o método)
 

@@ -513,6 +513,16 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
 .obraCard figcaption{display:grid;gap:3px}
 .obraCard__nome{margin:0;font-family:var(--f-display);font-size:16.5px;color:var(--claro)}
 .obraCard__linha{margin:0;font-size:15px;line-height:1.45;color:var(--mudo)}
+/* A série é um trabalho só, em dez vistas. Ela pede grade mais apertada e
+   cartão sem legenda: nome e linha embaixo de cada foto repetiriam dez vezes
+   a mesma informação. A nota em cima diz o que é, uma vez. */
+.acervo__grupo--serie{grid-column:1/-1}
+.acervo__nota{grid-column:1/-1;margin:0 0 var(--s2);max-width:62ch;
+  font-size:15.5px;line-height:1.5;color:var(--mudo)}
+@media (min-width:640px){.acervo__grupo--serie[data-vivo]{grid-template-columns:repeat(3,1fr)}}
+.obraCard--vista{gap:0}
+.obraCard--vista img{aspect-ratio:640/452;object-position:50% 50%}
+
 .obraCard__tag{position:absolute;left:12px;top:12px;z-index:2;margin:0;
   font-family:var(--f-display);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   padding:5px 11px;border-radius:999px;color:#fff;
