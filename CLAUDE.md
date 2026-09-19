@@ -137,14 +137,14 @@ atravessando a profundidade) e por isso **não podem ter o mesmo desenho**. Se
 tiverem, o site se repete e o visitante sente que já viu aquilo.
 
 - **Espelho**: a roda. Objeto renderizado, com volume, luz e textura.
-- **Método**: a obra (`ferramentas/obra.py`). Prancha técnica, traço puro, em
-  isometria. Uma camada por etapa, na ordem em que se constrói: terreno,
-  fundação, pilares, laje, guarda-corpo e cotas.
+- **Método**: as chapas (`ferramentas/obra.py`). Cinco chapas finas que descem
+  e assentam uma sobre a outra, alinhadas por dois pinos de registro. Cada uma
+  traz uma marca em fio de cabelo do que a etapa faz. É empilhamento de passes,
+  como gravura ou montagem ótica.
 
-A obra se desenha por `stroke-dashoffset` com `pathLength="1"`, então mexer na
-geometria não pede recalcular comprimento de caminho nenhum. Cada camada sai em
-dois caminhos sobrepostos: o de baixo assenta em linha muda e fica, o de cima
-passa em ciano só enquanto a etapa está em foco.
+A primeira versão do método era construção civil em isometria e foi reprovada
+em 18/09/2026: puxava para arquitetura. Se for mexer de novo, o teste é esse.
+Processo e precisão, não obra.
 
 O método é a **faixa escura da segunda metade** (`tom-azul`), em teste desde
 18/09/2026. Se for para voltar ao claro, é trocar a classe e o `data-chao` da
@@ -158,9 +158,21 @@ especular no ombro, oclusão nos encontros, luz de recorte, faceta escura na
 lâmina, banda de rodagem deslocada atrás (que é o que tira a leitura de ícone)
 e grão de borracha em azulejo de 48px.
 
-**Ainda é desenho, não fotografia, e não vai virar.** Gradiente de SVG tem teto.
-Para a roda ser real precisa de fotografia de roda isolada e de frente, com
-licença, em `Fontes/`. Não prometer o contrário.
+Em 18/09/2026 o Kauan mandou a referência (`Fontes/roda-referencia-azul.png`) e
+a roda foi refeita nesse padrão. **Três coisas eram o que a deixava genérica:**
+
+1. O aro era **cromado**. Aro prata é de carro de rua; aro de corrida é preto
+   brilhante, e nele o que descreve a forma não é a cor, é o fio de especular
+   na quina virada para a luz.
+2. Os raios eram **retos**. Agora são dez, em Y, que é o que existe em roda de
+   competição. Raio reto lê como ícone.
+3. O pneu era **fino demais**. Na referência o aro tem 54% do diâmetro total; a
+   versão anterior tinha 69%, e era isso que dava leitura de bicicleta.
+
+Armadilha: raio fino contra poço escuro some, e sobra só o fio de luz. A roda
+vira teia de aranha. A lâmina precisa de corpo e de face mais clara que o poço.
+
+**Ainda é desenho, não fotografia.** Gradiente de SVG tem teto.
 
 Cuidado com o grão: azulejo grande demais vira pedrisco. A 18 unidades do
 viewBox ele some como grão; a 72 ele aparece como lixa.

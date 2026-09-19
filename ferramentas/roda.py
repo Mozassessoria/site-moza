@@ -1,142 +1,141 @@
 # -*- coding: utf-8 -*-
-"""Gera a roda da Moza em vetor, a partir da roda de F1 de referência.
+"""A roda da Moza, no padrão da referência que o Kauan mandou (18/09/2026).
 
-O que faz uma roda desenhada parecer real não é contorno, é luz. Aqui a luz
-vem de uma direção só (canto superior esquerdo) e **todas** as peças usam o
-mesmo eixo de gradiente em userSpaceOnUse. É isso que amarra o objeto: se cada
-peça tem a sua própria luz, o olho lê desenho; se todas dividem a mesma, lê
-material.
+O que mudou em relação à versão anterior, e por quê:
 
-Em cima disso vêm as três coisas que o desenho vetorial costuma esquecer:
-o brilho especular no ombro do pneu, o escuro de contato (oclusão) onde as
-peças se encontram, e a luz de recorte na borda oposta à fonte.
+- **O aro é preto brilhante, não prata.** Era o erro que mais fazia o desenho
+  parecer genérico: aro cromado é de carro de rua, aro de corrida é preto com
+  brilho especular duro nas quinas.
+- **Dez raios em Y.** Cada raio sai do cubo, abre em dois braços perto do aro e
+  fecha vinte vãos. Raio reto é desenho de ícone; o Y é o que existe em roda de
+  competição de verdade.
+- **O pneu é muito mais gordo.** Na referência o aro tem 54% do diâmetro total.
+  A versão anterior tinha 69%, e era isso que dava a leitura de roda de
+  bicicleta.
+- **Xadrez que se dissolve** no flanco, em vez de arco cheio. Sai de um
+  stroke-dasharray que encurta, não de doze caminhos.
 
-Raios: oito, em quatro pares opostos, um par por raio do método. Largos o
-bastante para a face do aro ler como metal com oito janelas, não como palitos.
+A luz continua vindo de uma direção só, em userSpaceOnUse, para todas as peças.
 """
 import math
 
 C = 230.0
-PARES = [(0, 180), (45, 225), (90, 270), (135, 315)]
-LUZ = 225.0                      # de onde vem a luz, em graus SVG (y para baixo)
+LUZ = 225.0
+
+# Raios de referência, em unidades do viewBox de 460
+R_PNEU_FORA = 210.0
+R_PNEU_DENTRO = 148.0
+R_FLANCO_DENTRO = 113.0
+R_ARO = 109.0
+R_RAIO_FORA = 110.0
+R_CUBO = 45.0
+R_FURO = 24.0
+N_RAIOS = 10
+
 
 def pt(ang, r):
     a = math.radians(ang)
     return C + math.cos(a) * r, C + math.sin(a) * r
 
-def arco(r, ini, fim, larg=0):
+
+def barra(p1, p2, w1, w2):
+    """Quadrilátero entre dois pontos quaisquer, com largura em cada ponta."""
+    dx, dy = p2[0] - p1[0], p2[1] - p1[1]
+    L = math.hypot(dx, dy) or 1
+    px, py = -dy / L, dx / L
+    return ('M%.1f,%.1f L%.1f,%.1f L%.1f,%.1f L%.1f,%.1f Z' % (
+        p1[0] + px * w1, p1[1] + py * w1,
+        p2[0] + px * w2, p2[1] + py * w2,
+        p2[0] - px * w2, p2[1] - py * w2,
+        p1[0] - px * w1, p1[1] - py * w1))
+
+
+def raio_y(ang):
+    """O raio em Y: haste do cubo até a bifurcação, e dois braços até o aro."""
+    haste = barra(pt(ang, 38), pt(ang, 72), 8.4, 9.6)
+    bracos = [barra(pt(ang, 68), pt(ang + lado, R_RAIO_FORA), 8.0, 6.2)
+              for lado in (-10.5, 10.5)]
+    return haste + ' ' + ' '.join(bracos)
+
+
+def aresta_raio(ang):
+    """Fio de luz na quina virada para a fonte. Em peça preta brilhante é a
+       única coisa que diz onde a superfície dobra."""
+    n = (ang + 90) % 360
+    sinal = 1 if math.cos(math.radians(n - LUZ)) > 0 else -1
+    saidas = []
+    for a, r1, r2, w in ((ang, 38, 72, 9.0), (ang - 10.5, 68, R_RAIO_FORA, 7.0),
+                         (ang + 10.5, 68, R_RAIO_FORA, 7.0)):
+        p1, p2 = pt(ang if r1 == 68 else a, r1), pt(a, r2)
+        dx, dy = p2[0] - p1[0], p2[1] - p1[1]
+        L = math.hypot(dx, dy) or 1
+        px, py = -dy / L * sinal * w, dx / L * sinal * w
+        saidas.append('M%.1f,%.1f L%.1f,%.1f'
+                      % (p1[0] + px, p1[1] + py, p2[0] + px, p2[1] + py))
+    return ' '.join(saidas)
+
+
+def arco(r, ini, fim):
     x1, y1 = pt(ini, r); x2, y2 = pt(fim, r)
     grande = 1 if (fim - ini) % 360 > 180 else 0
     return 'M%.1f,%.1f A%.1f,%.1f 0 %d 1 %.1f,%.1f' % (x1, y1, r, r, grande, x2, y2)
 
-def _quad(ang, ri, ro, wi, wo):
-    p = math.radians(ang + 90)
-    px, py = math.cos(p), math.sin(p)
-    cix, ciy = pt(ang, ri); cox, coy = pt(ang, ro)
-    return ((cix + px*wi, ciy + py*wi), (cox + px*wo, coy + py*wo),
-            (cox - px*wo, coy - py*wo), (cix - px*wi, ciy - py*wi))
-
-def raio(ang):
-    """A lâmina: estreita no cubo, larga no aro."""
-    A, B, Cc, D = _quad(ang, 54, 152, 7.5, 14.5)
-    return ('M%.1f,%.1f L%.1f,%.1f L%.1f,%.1f L%.1f,%.1f Z'
-            % (A[0],A[1], B[0],B[1], Cc[0],Cc[1], D[0],D[1]))
-
-
-def faceta(ang):
-    """Metade da lâmina, do lado oposto à luz. Chapa plana não existe: raio de
-       aro tem quina no meio, e é a quina que diz que aquilo é metal dobrado."""
-    A, B, Cc, D = _quad(ang, 54, 152, 7.5, 14.5)
-    mi, mo = pt(ang, 54), pt(ang, 152)
-    n1 = (ang + 90) % 360
-    perto = math.cos(math.radians(n1 - LUZ)) > 0     # o lado A-B está na luz?
-    if perto:
-        P, Q = Cc, D                                 # a faceta escura é a outra
-    else:
-        P, Q = B, A
-    return ('M%.1f,%.1f L%.1f,%.1f L%.1f,%.1f L%.1f,%.1f Z'
-            % (mi[0],mi[1], mo[0],mo[1], P[0],P[1], Q[0],Q[1]))
-
-def aresta(ang, luz=True):
-    """Fio de luz na face voltada para a fonte, fio escuro na face oposta.
-       É o que dá espessura à lâmina sem desenhar espessura nenhuma."""
-    n1, n2 = (ang + 90) % 360, (ang - 90) % 360
-    d1 = math.cos(math.radians(n1 - LUZ))
-    lado = n1 if (d1 > 0) == luz else n2
-    sinal = 1 if lado == (ang + 90) % 360 else -1
-    p = math.radians(ang + 90)
-    px, py = math.cos(p) * sinal, math.sin(p) * sinal
-    cix, ciy = pt(ang, 54); cox, coy = pt(ang, 152)
-    return ('M%.1f,%.1f L%.1f,%.1f' % (cix + px*6.5, ciy + py*6.5, cox + px*13, coy + py*13))
 
 def montar(variante):
     L = []; A = L.append
     A('<svg class="roda roda--%s" viewBox="0 0 460 460" aria-hidden="true">' % variante)
     A('  <g class="roda__vista">')
-    A('    <ellipse class="roda__chao" cx="230" cy="430" rx="170" ry="20"/>')
-    # A largura do pneu: o mesmo anel deslocado atrás. Sem isto a roda é um
-    # disco chapado de frente, que é o que faz desenho parecer ícone.
+    A('    <ellipse class="roda__chao" cx="230" cy="432" rx="150" ry="16"/>')
     A('    <g class="roda__profundidade">')
-    A('      <circle class="roda__banda" cx="256" cy="216" r="194"/>')
-    A('      <circle class="roda__bandaLuz" cx="256" cy="216" r="222"/>')
+    A('      <circle class="roda__banda" cx="252" cy="212" r="179"/>')
     A('    </g>')
     A('  <g class="roda__corpo">')
 
     # ---- PNEU ------------------------------------------------------------
-    A('    <circle class="roda__pneu" cx="230" cy="230" r="194"/>')
-    # Grão da borracha, em textura que repete. Sem isto o flanco fica plástico.
-    A('    <circle class="roda__grao" cx="230" cy="230" r="194"/>')
-    # Relevo do flanco: anéis concêntricos finos, como borracha moldada.
-    for r in (172, 182, 206, 216):
-        A('    <circle class="roda__flanco" cx="230" cy="230" r="%d"/>' % r)
-    # Especular no ombro, do lado da luz. É o brilho que diz "isto é borracha".
-    A('    <path class="roda__brilhoPneu" d="%s"/>' % arco(210, 178, 262))
-    # Luz de recorte na borda oposta, fraca e fria.
-    A('    <path class="roda__recorte" d="%s"/>' % arco(219, 8, 74))
-    # Contato entre pneu e aro: o escuro que separa as duas peças.
-    A('    <circle class="roda__oclusao" cx="230" cy="230" r="166"/>')
+    A('    <circle class="roda__pneu" cx="230" cy="230" r="179"/>')
+    A('    <circle class="roda__grao" cx="230" cy="230" r="179"/>')
+    # Ombro: a quina externa da borracha pegando luz.
+    A('    <path class="roda__ombro" d="%s"/>' % arco(206, 186, 268))
+    A('    <path class="roda__recorte" d="%s"/>' % arco(206, 12, 70))
+    # Flanco interno: o anel mais claro entre a borracha e o aro. É a peça que
+    # faltava para a roda ter camadas em vez de ser um disco com um furo.
+    A('    <circle class="roda__flanco" cx="230" cy="230" r="130.5"/>')
+    A('    <circle class="roda__talao" cx="230" cy="230" r="113"/>')
 
-    # ---- FAIXA -----------------------------------------------------------
-    A('    <path class="roda__faixa" d="%s"/>' % arco(194, 196, 294))
-    A('    <path class="roda__faixa" d="%s"/>' % arco(194, 330, 66))
-
-    # ---- POÇO E FREIO ----------------------------------------------------
-    A('    <circle class="roda__poco" cx="230" cy="230" r="152"/>')
-    A('    <circle class="roda__disco" cx="230" cy="230" r="118"/>')
-    # Anel de furos do disco. Discreto: neste tamanho detalhe demais vira ruído.
-    A('    <circle class="roda__furos" cx="230" cy="230" r="98"/>')
-    A('    <circle class="roda__discoBorda" cx="230" cy="230" r="118"/>')
+    # ---- XADREZ ----------------------------------------------------------
+    A('    <path class="roda__xadrez" d="%s"/>' % arco(176, 156, 232))
+    A('    <path class="roda__xadrez" d="%s"/>' % arco(176, 308, 24))
 
     # ---- ARO -------------------------------------------------------------
-    A('    <circle class="roda__aro" cx="230" cy="230" r="158"/>')
-    A('    <path class="roda__aroLuz" d="%s"/>' % arco(158, 186, 268))
+    A('    <circle class="roda__poco" cx="230" cy="230" r="%.0f"/>' % R_RAIO_FORA)
+    A('    <circle class="roda__lip" cx="230" cy="230" r="%.0f"/>' % R_ARO)
+    A('    <path class="roda__lipLuz" d="%s"/>' % arco(R_ARO, 188, 262))
 
     # ---- RAIOS -----------------------------------------------------------
-    for k, par in enumerate(PARES):
-        A('    <g class="roda__par" style="--r:var(--r%d,0)">' % (k + 1))
-        for ang in par:
-            A('      <path class="roda__raio" d="%s"/>' % raio(ang))
-        for ang in par:
-            A('      <path class="roda__faceta" d="%s"/>' % faceta(ang))
-        for ang in par:
-            A('      <path class="roda__raioSombra" d="%s"/>' % aresta(ang, luz=False))
-            A('      <path class="roda__raioLuz" d="%s"/>' % aresta(ang, luz=True))
+    passo = 360.0 / N_RAIOS
+    for g in range(5):
+        angs = (g * passo, g * passo + 180)
+        A('    <g class="roda__par" style="--r:var(--r%d,0)">' % (g + 1))
+        for ang in angs:
+            A('      <path class="roda__raio" d="%s"/>' % raio_y(ang))
+        for ang in angs:
+            A('      <path class="roda__raioLuz" d="%s"/>' % aresta_raio(ang))
         A('    </g>')
 
-    # ---- CENTRO ----------------------------------------------------------
+    # ---- CUBO ------------------------------------------------------------
     if variante == 'monta':
-        A('    <circle class="roda__cubo" cx="230" cy="230" r="52"/>')
-        A('    <circle class="roda__cuboLuz" cx="230" cy="230" r="52"/>')
-        A('    <circle class="roda__porca" cx="230" cy="230" r="17"/>')
-        A('    <circle class="roda__porcaLuz" cx="223" cy="223" r="6"/>')
+        A('    <circle class="roda__cubo" cx="230" cy="230" r="%.0f"/>' % R_CUBO)
+        A('    <circle class="roda__cuboAro" cx="230" cy="230" r="%.0f"/>' % (R_CUBO - 7))
+        A('    <circle class="roda__furo" cx="230" cy="230" r="%.0f"/>' % R_FURO)
     else:
-        A('    <circle class="roda__oco" cx="230" cy="230" r="52"/>')
+        A('    <circle class="roda__oco" cx="230" cy="230" r="%.0f"/>' % R_CUBO)
 
     A('  </g>')
     A('  </g>')
     A('</svg>')
     return '\n        '.join(L)
 
+
 if __name__ == '__main__':
     import sys
-    print(montar(sys.argv[1]))
+    print(montar(sys.argv[1] if len(sys.argv) > 1 else 'oca'))

@@ -249,9 +249,9 @@
         po(roda, '--cubo', '0');
         po(roda, '--pneu',  suave(fatia(p, s * 2.0,  s * 2.6)).toFixed(3));
         po(roda, '--a',     suave(fatia(p, s * 2.15, s * 2.7)).toFixed(3));
-        for (var j = 0; j < 4; j++) {
+        for (var j = 0; j < 5; j++) {
           po(roda, '--r' + (j + 1),
-             suave(fatia(p, s * (2.25 + j * .12), s * (2.6 + j * .12))).toFixed(3));
+             suave(fatia(p, s * (2.22 + j * .10), s * (2.56 + j * .10))).toFixed(3));
         }
         po(roda, '--faixa', suave(fatia(p, s * 2.5, s * 2.95)).toFixed(3));
         po(roda, '--oco',   suave(fatia(p, s * 4.1, s * 4.5)).toFixed(3));

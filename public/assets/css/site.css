@@ -712,117 +712,94 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
 
 /* --------------------------------------------------------------------------
    A roda
-   Feita a partir da roda de F1 que o Kauan mandou de referência.
+   No padrão da referência que o Kauan mandou. Três coisas mudaram e são as
+   que separavam o desenho de uma roda de corrida de verdade:
 
-   O que faz desenho vetorial parecer material não é contorno, é luz. Aqui a
-   luz vem de uma direção só e todas as peças dividem o mesmo eixo de gradiente
-   (userSpaceOnUse, defs no index). Se cada peça tivesse a sua própria luz o
-   olho leria ilustração; dividindo a mesma, lê objeto.
+   1. O aro é PRETO BRILHANTE, não cromado. Aro prata é de carro de rua. Em
+      peça preta polida o que descreve a forma não é a cor, é a quina: o fio
+      de especular na aresta virada para a luz.
+   2. Os raios são dez, em Y. Cada um sai do cubo, abre em dois braços perto
+      do aro e fecha vinte vãos. Raio reto é desenho de ícone.
+   3. O pneu é muito mais gordo. Na referência o aro tem 54% do diâmetro; a
+      versão anterior tinha 69%, e era isso que dava leitura de bicicleta.
 
-   Em cima disso vêm as três coisas que vetor costuma esquecer: o especular no
-   ombro do pneu, a oclusão onde duas peças se encontram, e a luz de recorte na
-   borda oposta à fonte. Cada uma sozinha não faz diferença. Juntas, fazem.
-
-   Oito raios em quatro pares opostos, um par por raio do método: roda se
-   aperta par a par, nunca raio a raio.
+   A luz vem de uma direção só, em userSpaceOnUse, para todas as peças.
    -------------------------------------------------------------------------- */
 .roda{width:min(54vw,780px);height:auto;pointer-events:none;overflow:visible;
-  --pneu:1;--faixa:1;--a:1;--r1:1;--r2:1;--r3:1;--r4:1;--cubo:1;--oco:1;--sai:0}
-/* A roda não é vista de frente. Um giro pequeno e um achatamento no eixo Y
-   colocam ela num ângulo, e é isso que separa objeto de ícone: disco perfeito
-   e simétrico o olho lê como símbolo, não como coisa. */
-.roda__vista{transform-origin:230px 230px;transform:rotate(-3.5deg) scaleY(.93)}
+  --pneu:1;--faixa:1;--a:1;--r1:1;--r2:1;--r3:1;--r4:1;--r5:1;--cubo:1;--oco:1;--sai:0}
+/* Um giro pequeno e um achatamento no eixo Y tiram a simetria perfeita, que é
+   o que o olho lê como símbolo em vez de objeto. */
+.roda__vista{transform-origin:230px 230px;transform:rotate(-3deg) scaleY(.94)}
 .roda__corpo{transform-origin:230px 230px;
   transform:translateX(calc(var(--sai,0) * 760px)) rotate(calc(var(--sai,0) * 430deg))}
+.roda__chao{fill:rgba(8,26,52,.30);filter:blur(13px);
+  opacity:calc(var(--pneu,0) * .95);
+  transform:translateX(calc(var(--sai,0) * 760px))}
 
-/* A largura do pneu: o mesmo anel deslocado atrás. O meio-crescente que
-   aparece entre os dois é a banda de rodagem, e ela não gira junto com a roda
+/* A largura do pneu: o mesmo anel deslocado atrás. Não gira junto com a roda
    porque o ângulo de quem olha não muda quando a roda anda. */
 .roda__profundidade{opacity:var(--pneu,0);
   transform:translateX(calc(var(--sai,0) * 760px))}
-.roda__banda{fill:none;stroke:url(#luzBanda);stroke-width:62}
-.roda__bandaLuz{fill:none;stroke:rgba(196,222,248,.16);stroke-width:2}
-
-/* Grão da borracha, em azulejo que repete. Custa uma imagem de 3KB e resolve
-   o que gradiente nenhum resolve: superfície lisa demais é o que faz vetor
-   parecer desenho. feTurbulence daria o mesmo, e recalcularia a cada quadro. */
-.roda__grao{fill:none;stroke:url(#grao);stroke-width:62;
-  mix-blend-mode:overlay;opacity:calc(var(--pneu,0) * .16)}
-/* A sombra acompanha a saída mas não gira: sombra de chão não roda. */
-.roda__chao{fill:rgba(10,32,64,.24);filter:blur(17px);
-  opacity:calc(var(--pneu,0) * .9);
-  transform:translateX(calc(var(--sai,0) * 760px))}
+.roda__banda{fill:none;stroke:#080B0F;stroke-width:62}
 
 /* ---- pneu ---- */
 .roda__pneu{fill:none;stroke:url(#luzPneu);stroke-width:62;
-  stroke-dasharray:1220;stroke-dashoffset:calc((1 - var(--pneu,0)) * 1220px);
+  stroke-dasharray:1125;stroke-dashoffset:calc((1 - var(--pneu,0)) * 1125px);
   transform:rotate(-90deg);transform-origin:230px 230px}
-/* Anéis de moldagem no flanco. Ao cubo para só aparecerem quando o pneu
-   estiver quase inteiro: relevo em borracha que ainda não existe é erro. */
-.roda__flanco{fill:none;stroke:rgba(226,240,255,.055);stroke-width:1;
+.roda__grao{fill:none;stroke:url(#grao);stroke-width:62;
+  mix-blend-mode:overlay;opacity:calc(var(--pneu,0) * .15)}
+.roda__ombro{fill:none;stroke:rgba(228,241,255,.30);stroke-width:13;
+  stroke-linecap:round;filter:blur(8px);
   opacity:calc(var(--pneu,0) * var(--pneu,0) * var(--pneu,0))}
-.roda__brilhoPneu{fill:none;stroke:rgba(228,241,255,.46);stroke-width:17;
-  stroke-linecap:round;filter:blur(10px);
-  opacity:calc(var(--pneu,0) * var(--pneu,0) * var(--pneu,0))}
-.roda__recorte{fill:none;stroke:rgba(150,200,255,.34);stroke-width:4;
+.roda__recorte{fill:none;stroke:rgba(150,200,255,.24);stroke-width:4;
   stroke-linecap:round;filter:blur(3px);
   opacity:calc(var(--pneu,0) * var(--pneu,0) * var(--pneu,0))}
-.roda__oclusao{fill:none;stroke:rgba(0,0,0,.62);stroke-width:16;filter:blur(7px);
-  opacity:calc(var(--pneu,0) * var(--a,0))}
-
-.roda__faixa{fill:none;stroke:var(--ciano);stroke-width:9;stroke-linecap:butt;
-  stroke-dasharray:340;stroke-dashoffset:calc((1 - var(--faixa,0)) * 340px);
-  opacity:.92}
-
-/* ---- poço e freio ---- */
-.roda__poco{fill:url(#luzPoco)}
-.roda--monta .roda__poco{opacity:var(--cubo,0)}
-.roda--oca .roda__poco{opacity:calc(var(--a,0) * var(--a,0))}
-.roda__disco{fill:url(#luzDisco)}
-.roda__discoBorda{fill:none;stroke:rgba(150,172,194,.16);stroke-width:1.4}
-.roda__furos{fill:none;stroke:rgba(6,9,12,.75);stroke-width:5;
-  stroke-dasharray:2.5 13;stroke-linecap:round}
-.roda--oca .roda__disco,.roda--oca .roda__discoBorda,.roda--oca .roda__furos{display:none}
-.roda--monta .roda__disco,.roda--monta .roda__discoBorda,.roda--monta .roda__furos{
-  opacity:var(--cubo,0);transform-origin:230px 230px;
-  transform:scale(calc(.88 + var(--cubo,0) * .12))}
-
-/* ---- aro ---- */
-.roda__aro{fill:none;stroke:url(#luzAro);stroke-width:10;opacity:.78;
-  stroke-dasharray:993;stroke-dashoffset:calc((1 - var(--a,0)) * 993px);
+/* O anel mais claro entre a borracha e o aro. É a peça que faltava para a
+   roda ter camadas em vez de ser um disco com um furo no meio. */
+.roda__flanco{fill:none;stroke:url(#luzFlanco);stroke-width:35;
+  stroke-dasharray:820;stroke-dashoffset:calc((1 - var(--a,0)) * 820px);
   transform:rotate(-90deg);transform-origin:230px 230px}
-.roda__aroLuz{fill:none;stroke:rgba(244,250,255,.5);stroke-width:3;
-  stroke-linecap:round;filter:blur(1.6px);
+/* O talão: a sombra onde a borracha encosta no aro. Sem ela as duas peças
+   parecem pintadas no mesmo plano. */
+.roda__talao{fill:none;stroke:rgba(0,0,0,.6);stroke-width:8;filter:blur(4px);
+  opacity:calc(var(--a,0) * var(--pneu,0))}
+
+/* O xadrez do flanco, dissolvendo. Sai de um dasharray que encurta, não de
+   doze caminhos desenhados a mão. */
+.roda__xadrez{fill:none;stroke:var(--ciano);stroke-width:13;stroke-linecap:butt;
+  stroke-dasharray:22 7 19 8 16 9 13 10 10 11 7 12 5 14 4 16 3 18 2 20 2 22;
+  opacity:calc(var(--faixa,0) * .95)}
+
+/* ---- aro, preto brilhante ---- */
+.roda__poco{fill:url(#luzPoco);opacity:var(--a,0)}
+.roda__lip{fill:none;stroke:url(#luzAro);stroke-width:11;
+  stroke-dasharray:685;stroke-dashoffset:calc((1 - var(--a,0)) * 685px);
+  transform:rotate(-90deg);transform-origin:230px 230px}
+.roda__lipLuz{fill:none;stroke:rgba(238,247,255,.6);stroke-width:2.6;
+  stroke-linecap:round;filter:blur(1.5px);
   opacity:calc(var(--a,0) * var(--a,0))}
 
 /* ---- raios ---- */
 .roda__par{transform-origin:230px 230px;
-  transform:rotate(calc((1 - var(--r,0)) * -13deg));
+  transform:rotate(calc((1 - var(--r,0)) * -11deg));
   opacity:var(--r,0)}
 .roda__raio{fill:url(#luzRaio)}
-/* Metade da lâmina no escuro. Raio de aro tem quina no meio, e é a quina que
-   diz que aquilo é chapa dobrada e não um retângulo pintado. */
-.roda__faceta{fill:rgba(2,5,9,.24)}
-/* Fio de luz na face voltada para a fonte, fio escuro na oposta. É o que dá
-   espessura à lâmina sem desenhar espessura nenhuma. */
-.roda__raioLuz{fill:none;stroke:rgba(238,246,255,.55);stroke-width:1.6;
-  stroke-linecap:round}
-.roda__raioSombra{fill:none;stroke:rgba(0,0,0,.5);stroke-width:2.4;
+/* Em peça preta polida o fio de luz na quina é o que descreve a forma. Sem
+   ele o raio vira um recorte chapado. */
+.roda__raioLuz{fill:none;stroke:rgba(232,244,255,.38);stroke-width:1.8;
   stroke-linecap:round}
 
-/* ---- centro ---- */
+/* ---- cubo ---- */
 .roda__cubo{fill:url(#luzCubo);transform-origin:230px 230px;
   transform:scale(calc(.7 + var(--cubo,0) * .3));opacity:var(--cubo,0)}
-.roda__cuboLuz{fill:none;stroke:rgba(214,230,246,.30);stroke-width:1.4;
+.roda__cuboAro{fill:none;stroke:rgba(196,218,240,.24);stroke-width:2;
   transform-origin:230px 230px;
   transform:scale(calc(.7 + var(--cubo,0) * .3));opacity:var(--cubo,0)}
-.roda__porca{fill:url(#porcaG);transform-origin:230px 230px;
-  transform:scale(calc(.4 + var(--cubo,0) * .6));opacity:var(--cubo,0)}
-.roda__porcaLuz{fill:rgba(255,255,255,.7);filter:blur(2.5px);
-  opacity:calc(var(--cubo,0) * var(--cubo,0))}
+.roda__furo{fill:#04070A;transform-origin:230px 230px;
+  transform:scale(calc(.5 + var(--cubo,0) * .5));opacity:var(--cubo,0)}
 
 /* O centro que ninguém construiu. Tracejado porque é ausência, não peça. */
-.roda__oco{fill:none;stroke:var(--ciano);stroke-width:3;stroke-dasharray:3 12;
+.roda__oco{fill:none;stroke:var(--ciano);stroke-width:3;stroke-dasharray:3 11;
   stroke-linecap:round;opacity:calc(var(--oco,0) * .9);
   transform-origin:230px 230px;transform:scale(calc(.62 + var(--oco,0) * .38))}
 
@@ -835,6 +812,7 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
 @media (prefers-reduced-motion:reduce){
   .roda.tremendo{animation:none}
 }
+
 
 
 
@@ -886,35 +864,43 @@ html[data-tom="claro"] .topo__marca .naClara{display:block}
 }
 
 /* --------------------------------------------------------------------------
-   A obra · o desenho do método
-   Prancha técnica, traço puro. É o oposto da roda de propósito: a roda é
-   objeto com volume e luz, esta é linha. Duas seções com a mesma mecânica de
-   rolagem não podem ter a mesma imagem, senão o site se repete.
+   As chapas · o desenho do método
+   A primeira versão era construção civil em isometria e puxava para
+   arquitetura. Esta é a mesma ideia de processo em linguagem de precisão:
+   cinco chapas finas que descem e assentam uma sobre a outra, alinhadas por
+   dois pinos de registro.
 
-   Os traços se desenham por stroke-dashoffset com pathLength="1", então mexer
-   na geometria não pede recalcular comprimento nenhum.
+   Empilhamento de passes, como gravura ou montagem ótica. Chapa fora de
+   registro não fecha imagem nenhuma, que é exatamente o que a copy da seção
+   diz: cinco etapas, uma ordem.
 
-   Cada camada sai em dois caminhos sobrepostos: o de baixo assenta em linha
-   muda e fica, o de cima passa em ciano só enquanto a etapa está em foco. É
-   assim que a etapa atual se destaca sem apagar o que já foi construído.
+   Cada chapa traz uma marca em fio de cabelo do que aquela etapa faz. Sem
+   isso seriam cinco retângulos iguais, e cinco retângulos iguais não contam
+   história nenhuma.
    -------------------------------------------------------------------------- */
-.obra{width:min(46vw,620px);height:auto;pointer-events:none;overflow:visible;
+.obra{width:min(48vw,640px);height:auto;pointer-events:none;overflow:visible;
   --e1:1;--e2:1;--e3:1;--e4:1;--e5:1;--a1:0;--a2:0;--a3:0;--a4:0;--a5:0}
-.obra__corpo{transform-origin:260px 320px}
+.obra__corpo{transform-origin:250px 300px}
 
-.obra__traco,.obra__foco{
-  fill:none;stroke-linecap:round;stroke-linejoin:round;
-  stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--e,0))}
-.obra__traco{stroke:rgba(206,229,252,.46);stroke-width:1.6;
-  vector-effect:non-scaling-stroke}
-.obra__foco{stroke:var(--ciano);stroke-width:2.2;opacity:var(--a,0);
-  vector-effect:non-scaling-stroke}
+/* A chapa desce e assenta. O gesto é de encaixe, não de aparecimento. */
+.obra__camada{transform:translateY(calc((1 - var(--e,0)) * -74px));
+  opacity:var(--e,0)}
 
-/* O terreno é malha de referência, não peça: fica mais apagado que o resto e
-   não ganha foco, senão rouba a cena das camadas que importam. */
-.obra__camada--terreno .obra__traco{stroke:rgba(206,229,252,.20);stroke-width:1}
-.obra__camada--terreno .obra__foco{stroke-width:1.4;opacity:calc(var(--a,0) * .55)}
+.obra__chapa{fill:rgba(188,220,255,.055)}
+.obra__canto{fill:rgba(188,220,255,.13)}
+.obra__borda{fill:none;stroke:rgba(206,229,252,.40);stroke-width:1.4;
+  stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.obra__marca{fill:none;stroke:rgba(206,229,252,.30);stroke-width:1;
+  stroke-linecap:round;vector-effect:non-scaling-stroke}
+/* O ciano passa só na chapa em foco e devolve o traço depois: o que já
+   assentou continua visível, que é o ponto de uma pilha. */
+.obra__foco{fill:none;stroke:var(--ciano);stroke-width:2;stroke-linejoin:round;
+  opacity:var(--a,0);vector-effect:non-scaling-stroke}
+/* Os pinos: o que diz que as chapas só servem alinhadas. */
+.obra__pino{fill:none;stroke:rgba(206,229,252,.18);stroke-width:1.4;
+  stroke-dasharray:4 5;vector-effect:non-scaling-stroke}
 
 @media (max-width:899px){
-  .obra{width:min(74vw,330px)}
+  .obra{width:min(80vw,360px)}
 }
+
