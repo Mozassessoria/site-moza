@@ -48,11 +48,19 @@ Mudou alguma coisa de marca? Muda lá primeiro, depois aqui. Nunca o contrário.
   raiz de fundo e recorta o que está atrás numa borda dura, o que faz o cubo
   aparecer picado nas frestas entre cartões.
 
-## Publicar na Hostinger
+## Publicar
 
-1. hPanel, Gerenciador de arquivos, pasta `public_html` do domínio `mozabr.com.br`.
-2. Subir **o conteúdo de `public/`** (não a pasta), incluindo o `.htaccess`.
-3. Conferir no celular de verdade antes de divulgar.
+**O site está na Vercel e publica sozinho a cada push na `main`** (projeto `site-moza`, saída `public/`,
+`cleanUrls` ligado). Constatado em 28/09/2026: um push subiu páginas novas direto para o ar. Então:
+
+1. Push na `main` é publicação. Página nova ou texto público passa pela aprovação do Kauan antes do push.
+2. O endereço público é `https://www.mozabr.com.br`, sem `.html` (`/privacidade`, não `/privacidade.html`).
+   O endereço sem `www` redireciona para ele.
+3. Conferir no celular de verdade depois de publicar.
+
+Páginas fora do fluxo principal: `privacidade.html` (política exigida pela Meta para o app de Tech Provider,
+com `#exclusao`) e `conectar-whatsapp.html` (cadastro incorporado do WhatsApp para clientes do
+pré-atendimento, noindex, só abre com convite).
 
 Refazer o cartão de compartilhamento depois de mexer no texto do hero:
 
