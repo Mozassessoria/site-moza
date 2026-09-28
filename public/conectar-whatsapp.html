@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conectar WhatsApp | Moza</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="assets/img/logo/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/moza.css">
+<style>
+  :root { --c-fundo:#FFFFFF; --c-texto:#0E2438; --c-apoio:#5A7286; --c-fio:rgba(18,58,95,.12); --c-acao:#0071AD; --c-painel:#F2F5F9; --c-ok:#0F7B6C; --c-erro:#B3261E; }
+  html, body { background: var(--c-fundo); color: var(--c-texto); }
+  body { margin: 0; font: 400 17px/1.65 var(--f-corpo, 'Manrope', system-ui, sans-serif); }
+  .cx { max-width: 560px; margin: 0 auto; padding: 32px 20px 64px; }
+  .cx__topo { padding-bottom: 24px; border-bottom: 1px solid var(--c-fio); }
+  .cx__topo img { display: block; height: 22px; width: auto; }
+  h1 { margin: 36px 0 10px; font: 500 clamp(28px, 6vw, 36px)/1.15 var(--f-display, 'Jost', sans-serif); text-wrap: balance; }
+  p { margin: 0 0 14px; }
+  .apoio { color: var(--c-apoio); }
+  ol { margin: 20px 0 24px; padding-left: 22px; }
+  li { margin-bottom: 10px; }
+  .botao { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 52px; padding: 14px 20px; border: 0; border-radius: 2px; background: var(--c-acao); color: #FFFFFF; font: 600 17px/1.2 var(--f-corpo, sans-serif); cursor: pointer; }
+  .botao:hover { filter: brightness(1.08); }
+  .botao:focus-visible { outline: 3px solid var(--c-texto); outline-offset: 3px; }
+  .botao[disabled] { opacity: .55; cursor: default; filter: none; }
+  .estado { margin-top: 20px; padding: 16px 18px; background: var(--c-painel); border-radius: 2px; }
+  .estado--ok { border-left: 4px solid var(--c-ok); }
+  .estado--erro { border-left: 4px solid var(--c-erro); }
+  .estado p:last-child { margin-bottom: 0; }
+  .rodape { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--c-fio); color: var(--c-apoio); font-size: 14px; }
+  .rodape a { color: var(--c-acao); }
+</style>
+</head>
+<body>
+<main class="cx">
+  <header class="cx__topo"><img src="assets/img/logo/moza-wordmark-tinta.svg" alt="Moza" width="96" height="22"></header>
+
+  <h1>Conectar o WhatsApp da loja</h1>
+  <p id="saudacao">Este link liga o número que a loja já usa no WhatsApp Business ao atendimento automático da Moza.</p>
+  <p class="apoio">O número continua no aplicativo, com as conversas e os contatos. O time segue atendendo por ele normalmente.</p>
+
+  <ol>
+    <li>Tenha em mãos o celular com o WhatsApp Business da loja, atualizado.</li>
+    <li>Toque no botão abaixo e entre com o Facebook de quem administra a empresa na Meta.</li>
+    <li>Quando perguntar, escolha conectar o WhatsApp Business que você já usa e siga até o QR code.</li>
+    <li>No celular da loja, abra o aviso que o WhatsApp Business mostrar e leia o QR code.</li>
+  </ol>
+
+  <button class="botao" id="conectar" type="button" disabled>Carregando</button>
+  <div id="estado" class="estado" hidden></div>
+
+  <p class="rodape">Dados tratados conforme a <a href="privacidade.html">Política de Privacidade</a> da Moza. Dúvidas: contato@mozabr.com.br</p>
+</main>
+
+<script>
+/* Preencher depois da aprovação do app da Moza na Meta (App Dashboard e configuração do Login do Facebook para Empresas). */
+var META_APP_ID = "[DEFINIR]";
+var META_CONFIG_ID = "[DEFINIR]";
+var FUNCAO = "https://qdzuwnqejtjbtcysteip.supabase.co/functions/v1/pre-atendimento?ligar";
+
+var botao = document.getElementById("conectar");
+var caixa = document.getElementById("estado");
+var convite = new URLSearchParams(location.search).get("convite");
+var sessao = {};  /* o que o cadastro devolve por mensagem: conta e número do WhatsApp */
+var codigo = null;
+
+function mostrar(tipo, html) {
+  caixa.hidden = false;
+  caixa.className = "estado" + (tipo ? " estado--" + tipo : "");
+  caixa.innerHTML = html;
+}
+
+if (!convite) {
+  mostrar("erro", "<p>Este link está incompleto. Peça à Moza o link de conexão da sua loja.</p>");
+} else if (META_APP_ID.indexOf("DEFINIR") >= 0) {
+  mostrar("", "<p>A conexão ainda não foi aberta. A Moza avisa quando estiver pronta.</p>");
+  botao.textContent = "Em preparação";
+}
+
+window.addEventListener("message", function (ev) {
+  if (!/(^|\.)facebook\.com$/.test(new URL(ev.origin).hostname)) return;
+  try {
+    var d = JSON.parse(ev.data);
+    if (d.type !== "WA_EMBEDDED_SIGNUP") return;
+    if (d.event === "CANCEL") { mostrar("erro", "<p>A conexão foi interrompida antes do fim. Pode tentar de novo.</p>"); botao.disabled = false; return; }
+    if (d.event === "ERROR") { mostrar("erro", "<p>A Meta devolveu um erro no cadastro. Tente de novo ou fale com a Moza.</p>"); botao.disabled = false; return; }
+    sessao = d.data || {};
+    enviar();
+  } catch (e) { /* mensagens que não são do cadastro */ }
+});
+
+function enviar() {
+  if (!codigo || !sessao.waba_id) return;  /* espera as duas metades: o código do login e a conta do cadastro */
+  mostrar("", "<p>Conectando o número. Isso leva alguns segundos.</p>");
+  fetch(FUNCAO, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ convite: convite, code: codigo, waba_id: sessao.waba_id, phone_number_id: sessao.phone_number_id })
+  }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+    .then(function (res) {
+      if (res.ok && res.j.ok) {
+        mostrar("ok", "<p><strong>Número conectado.</strong> " + (res.j.numero ? "O " + res.j.numero + " já está ligado à Moza. " : "") +
+          "O atendimento automático começa quando a Moza terminar os testes com o time. Pode fechar esta página.</p>");
+        botao.textContent = "Conectado";
+      } else {
+        mostrar("erro", "<p>Não deu para concluir: " + (res.j.erro || "erro desconhecido") + ". Fale com a Moza antes de tentar de novo.</p>");
+        botao.disabled = false;
+      }
+    })
+    .catch(function () { mostrar("erro", "<p>Sem conexão com o servidor da Moza. Confira a internet e tente de novo.</p>"); botao.disabled = false; });
+}
+
+window.fbAsyncInit = function () {
+  FB.init({ appId: META_APP_ID, autoLogAppEvents: true, xfbml: false, version: "v25.0" });
+  if (convite) { botao.disabled = false; botao.textContent = "Conectar com o Facebook"; }
+};
+
+botao.addEventListener("click", function () {
+  botao.disabled = true;
+  mostrar("", "<p>Siga as telas que abriram. Se nada abriu, libere as janelas pop-up deste site.</p>");
+  FB.login(function (resp) {
+    if (resp.authResponse && resp.authResponse.code) { codigo = resp.authResponse.code; enviar(); }
+    else if (!sessao.waba_id) { mostrar("erro", "<p>O login não foi concluído. Pode tentar de novo.</p>"); botao.disabled = false; }
+  }, {
+    config_id: META_CONFIG_ID,
+    response_type: "code",
+    override_default_response_type: true,
+    /* coexistência: oferece conectar o WhatsApp Business que a loja já usa, sem tirar o número do aplicativo */
+    extras: { setup: {}, featureType: "whatsapp_business_app_onboarding", sessionInfoVersion: "3" }
+  });
+});
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js"></script>
+</body>
+</html>
