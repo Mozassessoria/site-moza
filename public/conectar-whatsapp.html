@@ -58,8 +58,8 @@
 
 <script>
 /* Preencher depois da aprovação do app da Moza na Meta (App Dashboard e configuração do Login do Facebook para Empresas). */
-var META_APP_ID = "[DEFINIR]";
-var META_CONFIG_ID = "[DEFINIR]";
+var META_APP_ID = "1360157512863656";
+var META_CONFIG_ID = "1021043034291029";
 var FUNCAO = "https://qdzuwnqejtjbtcysteip.supabase.co/functions/v1/pre-atendimento?ligar";
 
 var botao = document.getElementById("conectar");
@@ -76,7 +76,7 @@ function mostrar(tipo, html) {
 
 if (!convite) {
   mostrar("erro", "<p>Este link está incompleto. Peça à Moza o link de conexão da sua loja.</p>");
-} else if (META_APP_ID.indexOf("DEFINIR") >= 0) {
+} else if ((META_APP_ID + META_CONFIG_ID).indexOf("DEFINIR") >= 0) {
   mostrar("", "<p>A conexão ainda não foi aberta. A Moza avisa quando estiver pronta.</p>");
   botao.textContent = "Em preparação";
 }
@@ -116,7 +116,7 @@ function enviar() {
 
 window.fbAsyncInit = function () {
   FB.init({ appId: META_APP_ID, autoLogAppEvents: true, xfbml: false, version: "v25.0" });
-  if (convite) { botao.disabled = false; botao.textContent = "Conectar com o Facebook"; }
+  if (convite && META_CONFIG_ID.indexOf("DEFINIR") < 0) { botao.disabled = false; botao.textContent = "Conectar com o Facebook"; }
 };
 
 botao.addEventListener("click", function () {
