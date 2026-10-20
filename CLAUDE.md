@@ -5,7 +5,12 @@ Site institucional da Moza Assessoria. Uma página só, com âncoras. O objetivo
 
 ## Fonte de verdade
 
-Este projeto não decide marca nem copy. Ele executa o que já está decidido:
+Este projeto não decide marca nem copy. Ele executa o que já está decidido.
+
+**Atalho:** `DESIGN.md` na raiz junta cor, tipografia, componente, espaço,
+profundidade e limites num arquivo só, para agente ler de primeira. Ele é
+**derivado** do brandbook, não substitui. Mudou a marca? Muda no brandbook e
+depois atualiza o DESIGN.md.
 
 - Tokens (cor, tipografia, espaçamento): seção 06 de
   `../next-cerebro/marca/rebranding/fontes/brandbook-moza.md`
@@ -257,6 +262,22 @@ de `behavior:'instant'`, senão a captura sai de um ponto do caminho em vez do
 destino e você passa a tarde caçando um defeito que não existe. Isso já custou
 tempo duas vezes: uma culpando imagem que carrega tarde, outra achando que a
 animação não chegava ao fim.
+
+## Desempenho: a régua é 60fps em celular médio
+
+Medido em 19/10/2026 com `Emulation.setCPUThrottlingRate: 4` e largura de
+390px, rolando 90 quadros em cada dobra pesada (hero, espelho, campo WebGL,
+chapas, acervo): **60fps em todas, zero quadro acima de 33ms.**
+
+A ressalva honesta: é headless com CPU estrangulada num Mac, que é o proxy
+padrão, não um aparelho de verdade. Se mexer em WebGL, filtro de desfoque ou
+número de camadas animadas, **medir de novo antes de subir**. A sonda está em
+`ferramentas/` como molde do `foto.mjs`.
+
+Por que importa: jurado de Awwwards (2026) resume o corte em quatro, e o
+terceiro é o que mais reprova: direção de arte, movimento dirigido, **60fps em
+celular médio sob estrangulamento**, e fallback de movimento reduzido que não
+seja quebrado.
 
 ## Armadilha da sonda de QA
 

@@ -100,19 +100,36 @@
     comChao.forEach(function (e) { porta.observe(e); });
   }
 
-  /* ---- O acervo: clicar num tópico troca o painel ---- */
+  /* ---- O acervo: clicar num tópico troca o painel ----
+     A aba escolhida vive no endereço. Numa conversa de venda a gente manda o
+     link já aberto na prova certa, e quem recebe abre no mesmo lugar. Sem isso
+     o link sempre cai na primeira aba, independente do que foi mostrado. */
   var abas = [].slice.call(document.querySelectorAll('.aba'));
   if (abas.length) {
     var grupos = [].slice.call(document.querySelectorAll('.acervo__grupo'));
-    var abrir = function (i) {
+    var chaves = abas.map(function (a) {
+      return (a.textContent || '').trim().toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z]+/g, '-').replace(/^-|-$/g, '').slice(0, 24);
+    });
+    var abrir = function (i, gravar) {
       abas.forEach(function (a, n) { a.setAttribute('aria-selected', n === i ? 'true' : 'false'); });
       grupos.forEach(function (g, n) {
         if (n === i) g.setAttribute('data-vivo', '');
         else g.removeAttribute('data-vivo');
       });
+      if (gravar && history.replaceState) {
+        history.replaceState(null, '', '#acervo=' + chaves[i]);
+      }
     };
+    /* Chegou por link com aba escolhida? Abre nela. */
+    var pedida = (location.hash.match(/^#acervo=(.+)$/) || [])[1];
+    if (pedida) {
+      var alvo = chaves.indexOf(decodeURIComponent(pedida));
+      if (alvo >= 0) abrir(alvo, false);
+    }
     abas.forEach(function (a, i) {
-      a.addEventListener('click', function () { abrir(i); });
+      a.addEventListener('click', function () { abrir(i, true); });
       // Seta navega entre abas, como manda o padrão de tablist
       a.addEventListener('keydown', function (ev) {
         var d = ev.key === 'ArrowDown' || ev.key === 'ArrowRight' ? 1
@@ -120,7 +137,7 @@
         if (!d) return;
         ev.preventDefault();
         var n = (i + d + abas.length) % abas.length;
-        abrir(n); abas[n].focus();
+        abrir(n, true); abas[n].focus();
       });
     });
   }

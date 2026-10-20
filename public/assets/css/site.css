@@ -37,7 +37,10 @@
    um pixel. Custou uma tarde para achar. */
 .hero{position:relative;isolation:isolate;min-height:100svh;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:clamp(var(--s4),6vh,var(--s5));
-  padding:clamp(96px,14vh,150px) 0 clamp(var(--s5),9vh,var(--s6));overflow:hidden}
+  padding:clamp(96px,14vh,150px) 0 clamp(var(--s5),9vh,var(--s6));overflow:hidden;
+  /* O hero sangra de borda a borda e ocupa a tela inteira: no iPhone deitado a
+     copy entrava embaixo do entalhe. */
+  padding-inline:env(safe-area-inset-left) env(safe-area-inset-right)}
 
 .marca{position:relative;width:min(88vw,1000px);aspect-ratio:780/176;
   --mx:39.9%;--my:48.9%;--raio:150px}
@@ -211,6 +214,12 @@
 .rodape__contatos a:hover{color:var(--ciano)}
 .rodape__legal{margin:var(--s5) 0 0;padding-top:var(--s3);border-top:1px solid var(--fio);
   font-size:15px;color:var(--mudo);line-height:1.6;max-width:72ch}
+/* Link jurídico em linha própria. Enfiado no meio do parágrafo ele ficava com
+   21px de altura, abaixo do mínimo de toque, e ninguém acerta num dedo. */
+.rodape__legais{margin:var(--s2) 0 0}
+.rodape__legais a{display:inline-block;padding:11px 0;font-size:15px;
+  color:var(--mudo);text-decoration:underline;text-underline-offset:3px}
+.rodape__legais a:hover{color:var(--claro)}
 
 /* --------------------------------------------------------------------------
    Até onde a gente entra
