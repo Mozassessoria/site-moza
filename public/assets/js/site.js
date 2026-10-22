@@ -256,6 +256,9 @@
           po(obra, '--a' + n,
              suave(Math.max(0, 1 - Math.abs(p - s * (n + .5)) / (s * .85))).toFixed(3));
         }
+        /* A câmera gira devagar ao longo da seção inteira. Sem isso a pilha
+           cresce mas o ponto de vista fica parado, e parece ilustração. */
+        po(obra, '--giro', suave(fatia(p, s * .6, 1)).toFixed(3));
         return;
       }
 
@@ -393,4 +396,54 @@
      load resolve os dois sem observador. */
   window.addEventListener('load', function () { remedir(); pintar(); });
   remedir(); pintar();
+})();
+
+/* ==========================================================================
+   Os filmes do acervo
+   O laço só baixa quando o cartão chega perto da tela: três vídeos carregando
+   na abertura da página seriam 700KB que a maioria nunca vê, porque o acervo
+   fica lá embaixo.
+
+   No toque, o laço mudo dá lugar ao filme inteiro, com som e com os controles
+   do próprio navegador. O som é metade do trabalho, mas ninguém pede para ser
+   surpreendido com áudio rolando a página.
+   ========================================================================== */
+(function () {
+  'use strict';
+  var filmes = [].slice.call(document.querySelectorAll('[data-filme]'));
+  if (!filmes.length) return;
+  var calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  filmes.forEach(function (f) {
+    var v = f.querySelector('.filme__video');
+    var botao = f.querySelector('.filme__som');
+    if (!v) return;
+
+    /* Quem pediu menos movimento fica com o cartaz parado. */
+    if (!calmo) {
+      new IntersectionObserver(function (e, obs) {
+        if (!e[0].isIntersecting) return;
+        v.preload = 'auto';
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});   // navegador que recusa autoplay fica no cartaz
+        obs.disconnect();
+      }, { rootMargin: '200px' }).observe(f);
+    }
+
+    if (!botao) return;
+    botao.addEventListener('click', function () {
+      var cheio = f.getAttribute('data-cheio');
+      if (!cheio) return;
+      f.setAttribute('data-tocando', '');
+      v.pause();
+      v.innerHTML = '';
+      v.src = cheio;
+      v.loop = false;
+      v.muted = false;
+      v.controls = true;
+      v.currentTime = 0;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { v.controls = true; });
+    });
+  });
 })();

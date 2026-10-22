@@ -1,110 +1,68 @@
 # -*- coding: utf-8 -*-
-"""O método em camadas de registro.
+"""O método em chapas de registro, versão 3D.
 
-A primeira versão era uma construção civil em isometria, e o Kauan reprovou:
-puxava para arquitetura. Esta é a mesma ideia de processo, em linguagem de
-precisão em vez de obra: cinco chapas finas que descem e assentam uma sobre a
-outra, alinhadas por dois pinos de registro.
+A primeira versão era construção civil em isometria e puxava para arquitetura.
+A segunda era isometria falsa em SVG: parelelogramo chapado, sem material e sem
+câmera. O Kauan reprovou por simples, e estava certo.
 
-É um empilhamento de passes, como gravura ou montagem ótica. Cada chapa traz
-uma marca em fio de cabelo que diz o que aquela etapa faz, e a ordem importa
-porque chapa fora de registro não fecha imagem nenhuma. É exatamente o que a
-copy da seção diz: cinco etapas, uma ordem.
+Esta é a mesma ideia, executada noutro nível: as chapas são elementos reais em
+perspectiva 3D do navegador, com vidro, aresta que pega luz, profundidade de
+campo e uma câmera que se move com a rolagem. A isometria desenhada à mão
+morreu: quem faz o ângulo agora é o `perspective` do palco.
+
+O que cada chapa carrega continua sendo a marca técnica da etapa, porque cinco
+retângulos iguais não contam história nenhuma.
 """
-import math
 
-CX, CY = 250.0, 300.0
-KX, KY = 0.92, 0.32          # isometria achatada: chapa vista de cima e de frente
-LX, LY = 124.0, 80.0         # meia-largura e meia-profundidade da chapa
-PASSO = 36.0                 # distância entre uma chapa e a seguinte
-ESP = 5.0                    # espessura aparente
-
-
-def iso(x, y, z=0.0):
-    return (CX + (x - y) * KX, CY + (x + y) * KY - z)
+ETAPAS = [
+    ('malha',      'Diagnóstico'),
+    ('eixo',       'Posicionamento'),
+    ('ritmo',      'Conteúdo'),
+    ('convergir',  'Venda'),
+    ('ciclo',      'Jornada'),
+]
 
 
-def face(z, lx=LX, ly=LY):
-    c = [(-lx, -ly), (lx, -ly), (lx, ly), (-lx, ly)]
-    p = [iso(x, y, z) for x, y in c]
-    return ('M%.1f,%.1f L%.1f,%.1f L%.1f,%.1f L%.1f,%.1f Z'
-            % (p[0][0],p[0][1], p[1][0],p[1][1], p[2][0],p[2][1], p[3][0],p[3][1]))
-
-
-def canto(z, lx=LX, ly=LY):
-    """As duas faces da frente, que dão espessura à chapa."""
-    a = iso(-lx, ly, z);  b = iso(lx, ly, z);  d = iso(lx, -ly, z)
-    return ('M%.1f,%.1f L%.1f,%.1f L%.1f,%.1f L%.1f,%.1f Z '
-            'M%.1f,%.1f L%.1f,%.1f L%.1f,%.1f L%.1f,%.1f Z'
-            % (a[0],a[1], b[0],b[1], b[0],b[1]+ESP, a[0],a[1]+ESP,
-               b[0],b[1], d[0],d[1], d[0],d[1]+ESP, b[0],b[1]+ESP))
-
-
-def seg(p, q):
-    a, b = iso(*p), iso(*q)
-    return 'M%.1f,%.1f L%.1f,%.1f' % (a[0], a[1], b[0], b[1])
-
-
-def marca(n, z):
-    """O fio de cabelo em cima da chapa. Cada etapa tem o seu, senão as cinco
-       chapas viram cinco retângulos iguais e o desenho não diz nada."""
-    if n == 1:                                   # Diagnóstico: medir o terreno
+def marca(tipo):
+    """O fio de cabelo sobre a chapa, em SVG de 400x260."""
+    if tipo == 'malha':
         d = []
-        for gx in range(-3, 4):
-            for gy in range(-2, 3):
-                x, y = gx * 26, gy * 26
-                d.append(seg((x - 4, y, z), (x + 4, y, z)))
-                d.append(seg((x, y - 4, z), (x, y + 4, z)))
+        for gx in range(-5, 6):
+            for gy in range(-3, 4):
+                x, y = 200 + gx * 32, 130 + gy * 32
+                d.append('M%d,%d h9 M%d,%d v9' % (x - 4.5, y, x, y - 4.5))
         return ' '.join(d)
-    if n == 2:                                   # Posicionamento: um eixo só
-        return (seg((-92, 0, z), (92, 0, z)) + ' ' +
-                seg((-92, -8, z), (-92, 8, z)) + ' ' + seg((92, -8, z), (92, 8, z)))
-    if n == 3:                                   # Conteúdo: ritmo que repete
-        return ' '.join(seg((x, -52, z), (x, 52, z)) for x in range(-90, 91, 20))
-    if n == 4:                                   # Venda: o que converge
-        return ' '.join(seg((-92, y, z), (86, 0, z)) for y in (-56, -28, 0, 28, 56))
-    # Jornada: o ciclo que se fecha
-    d = []
-    passos = 40
-    for k in range(passos):
-        a1 = 2 * math.pi * k / passos
-        a2 = 2 * math.pi * (k + 1) / passos
-        if k % 2:
-            continue
-        d.append(seg((math.cos(a1) * 78, math.sin(a1) * 46, z),
-                     (math.cos(a2) * 78, math.sin(a2) * 46, z)))
-    return ' '.join(d)
-
-
-def camada(n, corpo):
-    return (
-'      <path class="obra__chapa" style="--e:var(--e%d,0)" d="%s"/>\n'
-'      <path class="obra__canto" style="--e:var(--e%d,0)" d="%s"/>\n'
-'      <path class="obra__borda" style="--e:var(--e%d,0);--a:var(--a%d,0)" d="%s"/>\n'
-'      <path class="obra__marca" style="--e:var(--e%d,0);--a:var(--a%d,0)" d="%s"/>\n'
-'      <path class="obra__foco" style="--a:var(--a%d,0)" d="%s"/>'
-        % (n, corpo['face'], n, corpo['canto'], n, n, corpo['face'], n, n, corpo['marca'],
-           n, corpo['face']))
+    if tipo == 'eixo':
+        return 'M40,130 H360 M40,118 V142 M360,118 V142'
+    if tipo == 'ritmo':
+        return ' '.join('M%d,56 V204' % x for x in range(48, 361, 26))
+    if tipo == 'convergir':
+        return ' '.join('M40,%d L352,130' % y for y in (44, 87, 130, 173, 216))
+    return ('M200,42 C288,42 352,81 352,130 C352,179 288,218 200,218 '
+            'C112,218 48,179 48,130 C48,81 112,42 200,42')
 
 
 def montar():
     L = []; A = L.append
-    A('<svg class="obra" viewBox="40 60 420 400" aria-hidden="true">')
-    A('  <g class="obra__corpo">')
-
-    # Os pinos de registro: o que diz que as chapas só servem alinhadas.
-    for sx, sy in ((-LX - 16, LY + 10), (LX + 16, -LY - 10)):
-        A('    <path class="obra__pino" d="%s"/>'
-          % seg((sx, sy, -16), (sx, sy, PASSO * 4 + 30)))
-
-    for n in range(1, 6):
-        z = PASSO * (n - 1)
-        A('    <g class="obra__camada" style="--e:var(--e%d,0)">' % n)
-        A(camada(n, {'face': face(z), 'canto': canto(z), 'marca': marca(n, z)}))
-        A('    </g>')
-
-    A('  </g>')
-    A('</svg>')
+    A('<div class="obra" aria-hidden="true">')
+    A('  <div class="obra__camara">')
+    A('    <div class="obra__pilha">')
+    for i, (tipo, nome) in enumerate(ETAPAS, start=1):
+        A('      <div class="chapa" style="--i:%d;--e:var(--e%d,0);--a:var(--a%d,0)">' % (i - 1, i, i))
+        A('        <div class="chapa__corpo">')
+        A('          <svg class="chapa__marca" viewBox="0 0 400 260" aria-hidden="true">')
+        A('            <path d="%s"/>' % marca(tipo))
+        A('          </svg>')
+        A('          <span class="chapa__brilho"></span>')
+        A('        </div>')
+        # A régua na aresta: detalhe de instrumento, não enfeite.
+        A('        <div class="chapa__regua">%s</div>' % ('<i></i>' * 14))
+        A('      </div>')
+    A('    </div>')
+    # O eixo de registro: o que diz que as chapas só servem alinhadas.
+    A('    <div class="obra__eixo"></div>')
+    A('  </div>')
+    A('</div>')
     return '\n        '.join(L)
 
 

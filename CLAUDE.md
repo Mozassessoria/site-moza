@@ -79,92 +79,40 @@ python3 -m http.server 8899 &
 ## O acervo (`#acervo`)
 
 Padrão "Explore os detalhes" da Apple: tópicos clicáveis de um lado, a obra do
-outro. É `role="tablist"` de verdade, com seta navegando entre abas. O JS acha
-as abas e os grupos por índice, então acrescentar ou tirar uma aba não pede
-mexer em JS.
+outro. É `role="tablist"` de verdade, com seta navegando entre abas, e a aba
+escolhida vive no endereço (`#acervo=<chave>`), para mandar o link já aberto na
+prova certa. O JS acha abas e grupos por índice: acrescentar aba não pede JS.
 
-**A produção de conteúdo vem primeiro, a vitrine por último** (mudança de
-18/09/2026, pedido do Kauan). O que a Moza mais faz é posicionamento e
-conteúdo; print de site era a primeira coisa que aparecia e dava a impressão
-errada do que a casa vende.
+**A produção de conteúdo vem primeiro, a vitrine por último.** O que a Moza
+mais faz é posicionamento e conteúdo; print de site era a primeira coisa que
+aparecia e dava a impressão errada do que a casa vende.
 
-- **Aba 1, Produção de conteúdo**: a série do Panamera da Garage 665, dez
-  vistas, recortadas de `next-cerebro/marketing/estudio/serie-panamera-aprovada.jpg`
-  por `ferramentas/serie.py`. Grade de três colunas e cartão sem legenda: é um
-  trabalho só em dez vistas, e legenda por foto repetiria a mesma informação
-  dez vezes. A nota em cima diz o que é, uma vez.
+- **Aba 1, Produção de conteúdo**: os filmes, montados aqui do roteiro ao som.
+  Fonte em `../videos/`, transcodados para `public/assets/video/`. Cada um tem
+  três arquivos: o laço curto e mudo (~200KB, roda no cartão), o cartaz, e o
+  filme inteiro com som (só baixa no toque). Hoje: Via Brasil (reel da Saveiro),
+  PP Automóveis (guia do feirão com rota no drone) e Demari (abertura de
+  palestra).
 - **Aba 2, Vitrine digital**: os sites de cliente. **Só entra obra que está no
   ar.** Se tirar um site do ar, tira do acervo.
 
 ### O que NÃO pode entrar no acervo
 
+**A série do Panamera da Garage 665 saiu em 21/10/2026: a Garage 665 nunca
+virou cliente.** Prova de acervo é trabalho entregue a cliente fechado, não
+peça feita em tratativa comercial.
+
 Em `next-cerebro/marketing/estudio/masters/` existem masters de Via Brasil, PP
-Automóveis e Santo André que parecem prova de produção. **Não são.** O
-`*-usage.json` de cada um diz `status: candidata_gerada_nao_aprovada` e
-`modelo: gpt-image-*`: são candidatas geradas por IA no desenvolvimento do
-pipeline, nunca aprovadas nem entregues. Publicar aquilo como trabalho
-entregue seria falso.
+e Santo André que parecem prova. **Não são.** O `*-usage.json` de cada um diz
+`status: candidata_gerada_nao_aprovada` e `modelo: gpt-image-*`: candidatas de
+IA do desenvolvimento do pipeline. Os arquivos em `estudio/referencias/` são
+**fotos de concorrentes**, lidas do estoque público deles.
 
-Os arquivos em `estudio/referencias/` (Paíto Motors, Natta Motors) são **fotos
-de concorrentes**, lidas do estoque público deles para estudo de padrão. Nunca
-vão para o site.
+**Antes de subir peça do estúdio, ler o `-usage.json` e confirmar que o cliente
+fechou.**
 
-**Antes de subir qualquer peça do estúdio, ler o `-usage.json`.** Hoje a única
-marcada como entregue e aprovada é a série do Panamera (Garage 665, 08/09/2026).
-
-Cada tópico tem cor própria, **toda dentro da família do azul**: `#0071AD`,
-`#0096DC`, `#00B4FF`. Dá vida sem abrir um segundo acento, que o brandbook
-proíbe.
-
-## Os portais (o espelho e o método)
-
-Duas seções são palcos travados na tela: o espelho e o método. Cada cena
-atravessa a profundidade, nasce longe e desfocada, chega ao plano da página,
-fica, e recua enquanto a próxima já vem vindo.
-
-A escala do M **não é escrita à mão**. Ele anda em linha reta no eixo Z
-(`translateZ`, de -500px a 1020px) e quem faz a aceleração é a perspectiva de
-1200px do palco. A curva é a hipérbole `1200/(1200-z)`, de graça, e é o que
-separa aproximação de câmera de crescimento de keyframe.
-
-**A altura do trilho não está no CSS.** Ela sai de `número de cenas × passo`,
-escrita pelo `site.js`. Acrescentar ou tirar uma cena no HTML não pede conta
-nova: só mexa em `data-portal-passo` se quiser o percurso mais curto ou mais
-longo (hoje 105 no espelho, 90 no método, em svh por cena).
-
-**A classe `portal--vivo` troca o modo de layout inteiro**, não só a animação.
-Sem ela (sem JS, ou com `prefers-reduced-motion`) o palco é fluxo normal: as
-cenas ficam uma embaixo da outra e a roda fica parada e montada. Por isso os
-valores da roda têm padrão 1 no CSS: o motor escreve os mesmos nomes no style
-do elemento e ganha por ser inline.
-
-Não pôr `overflow:hidden` no trilho (`.portal`): mata o `sticky` do palco. Ele
-vai no palco, que é o próprio elemento travado.
-
-### A roda, um componente e dois argumentos
-
-Feita a partir de uma roda de F1 que o Kauan mandou de referência (12/09/2026).
-O que veio de lá: a proporção (pneu gordo, aro pequeno), a lâmina de raio que
-afina no cubo e engorda no aro, o disco furado por trás, e a faixa de cor na
-lateral do pneu. **O que é nosso: a faixa é ciano e não tem marca de ninguém
-escrita nela.** Nada de Pirelli, Enkei ou Brembo no desenho, que seria marca de
-terceiro num site comercial.
-
-Oito raios em quatro pares opostos, um par por raio do método. Roda se aperta
-par a par, nunca raio a raio, então cada etapa fecha um par e a roda fica
-equilibrada em todo passo da montagem.
-
-No **espelho** ela monta sem cubo (`.roda--oca`): pneu, aro, raios, faixa. Os
-raios terminam no ar, o meio fica marcado por um anel tracejado em ciano, ela
-treme, e no fim sai de tela rolando para a direita (`--sai`). No **método**
-(`.roda--monta`) o cubo é a primeira peça, cada etapa prende um par nele, e o
-pneu entra por último, na Jornada, que é a etapa de sustentar o resultado.
-
-O `.roda__poco` é o fundo escuro entre os raios. Sem ele a roda vira aro com
-palitos e o fundo da página vaza pelo meio.
-
-O desenho sai de `ferramentas/roda.py` (gerador). Mexeu na geometria? Rode o
-gerador e troque os dois `<svg class="roda ...">` do index.
+Nota: não existe vídeo de Porsche da Via Brasil. O filme da Via Brasil é a
+**Saveiro Robust 2023**; o Porsche era a série da Garage 665, que saiu.
 
 ## Duas seções, duas linguagens
 
@@ -173,14 +121,19 @@ atravessando a profundidade) e por isso **não podem ter o mesmo desenho**. Se
 tiverem, o site se repete e o visitante sente que já viu aquilo.
 
 - **Espelho**: a roda. Objeto renderizado, com volume, luz e textura.
-- **Método**: as chapas (`ferramentas/obra.py`). Cinco chapas finas que descem
-  e assentam uma sobre a outra, alinhadas por dois pinos de registro. Cada uma
-  traz uma marca em fio de cabelo do que a etapa faz. É empilhamento de passes,
-  como gravura ou montagem ótica.
+- **Método**: as chapas (`ferramentas/obra.py`). Cinco chapas de vidro que
+  descem e assentam uma sobre a outra, num eixo de registro. Empilhamento de
+  passes, como gravura ou montagem ótica.
 
-A primeira versão do método era construção civil em isometria e foi reprovada
-em 18/09/2026: puxava para arquitetura. Se for mexer de novo, o teste é esse.
-Processo e precisão, não obra.
+**São elementos em perspectiva 3D do navegador, não SVG.** Quem faz o ângulo é
+o `perspective` do palco e a câmera gira com a rolagem (`--giro`). A isometria
+desenhada à mão morreu em 21/10/2026: era parelelogramo chapado, sem material e
+sem câmera, e foi reprovada por simples.
+
+Duas reprovações já aconteceram aqui, e o teste de cada uma vale:
+1. **Não pode puxar para arquitetura** (18/09). Processo e precisão, não obra.
+2. **Não pode ser desenho chapado** (21/10). Precisa de material, profundidade
+   de verdade e ponto de vista que se mexe.
 
 O método é a **faixa escura da segunda metade** (`tom-azul`), em teste desde
 18/09/2026. Se for para voltar ao claro, é trocar a classe e o `data-chao` da
