@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notas para a Hermanos | Moza</title>
+<meta name="description" content="Pontos de otimização de stories, feed, vídeo, anúncios e posicionamento para a Hermanos Premium e a Hermanos Multimarcas.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#05070A">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Moza">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://www.mozabr.com.br/hermanos">
+<meta property="og:title" content="Notas para a Hermanos">
+<meta property="og:description" content="Stories, feed, vídeo, anúncios e as duas casas. Pontos de otimização depois da visita de 20 de outubro.">
+<meta property="og:image" content="https://www.mozabr.com.br/hermanos/img/og-hermanos.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.mozabr.com.br/hermanos/img/og-hermanos.jpg">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/img/logo/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/logo/favicon-180.png">
+<link rel="preload" href="/assets/fonts/jost-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Jost';src:url('/assets/fonts/jost-var.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Manrope';src:url('/assets/fonts/manrope-var.woff2') format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
+
+/* Leiaute: documento editorial no padrão do site da Moza. Escuro na abertura e no fecho, corpo claro com uma faixa marinho.
+   Índice tipográfico à esquerda, conteúdo à direita, régua fina no lugar de caixa. Ciano é o único acento. */
+:root{
+  --breu:#05070A; --breu2:#0A0E13; --breu3:#10161D;
+  --marinho:#0A2340;
+  --branco:#FFFFFF; --nevoa:#F2F5F9;
+  --claro:#E6EDF3; --claro2:#AEBBC7; --mudo:#78848F;
+  --tinta:#123A5F; --tinta2:#3F5871; --tinta3:#6C8095;
+  --link:#0071AD; --ciano:#00B4FF;
+  --fio-e:rgba(230,237,243,.15); --fio-c:rgba(18,58,95,.14);
+  --ouro:#CFA851;  /* só dentro das simulações da Hermanos */
+  --f-tit:'Jost', 'Futura', 'Avenir Next', system-ui, sans-serif;
+  --f-txt:'Manrope', 'Helvetica Neue', system-ui, sans-serif;
+  --s1:8px; --s2:16px; --s3:22px; --s4:34px; --s5:50px; --s6:70px; --s7:96px; --s8:124px;
+  --largura:1120px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px;background:var(--breu);-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--branco);color:var(--tinta2);font-family:var(--f-txt);font-size:18.5px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+a{color:var(--link);touch-action:manipulation}
+:focus-visible{outline:2px solid var(--ciano);outline-offset:3px;border-radius:2px}
+.env{max-width:var(--largura);margin:0 auto;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px))}
+.env > *, .grade > *{min-width:0}
+
+.etiqueta{font-family:var(--f-txt);font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--tinta3)}
+.escuro .etiqueta{color:var(--mudo)}
+.tela{font-family:var(--f-tit);font-weight:300;font-size:clamp(2.6rem,6.4vw,5rem);line-height:1.02;letter-spacing:-.032em;text-wrap:balance}
+.titulo{font-family:var(--f-tit);font-weight:300;font-size:clamp(2rem,4.2vw,3.2rem);line-height:1.06;letter-spacing:-.03em;text-wrap:balance;color:var(--tinta)}
+.sub{font-family:var(--f-tit);font-weight:400;font-size:clamp(1.3rem,2.2vw,1.6rem);line-height:1.25;letter-spacing:-.015em;color:var(--tinta)}
+.corpo{max-width:60ch}
+.corpo--g{font-size:clamp(1.15rem,1.7vw,1.32rem);line-height:1.5;max-width:58ch}
+.escuro{background:var(--breu);color:var(--claro2);color-scheme:dark}
+.escuro .titulo,.escuro .sub{color:var(--claro)}
+.marinho{background:var(--marinho);color:#C3D2E0;color-scheme:dark}
+.marinho .titulo,.marinho .sub{color:var(--claro)}
+.marinho .etiqueta{color:#8FA6BD}
+.nevoa{background:var(--nevoa)}
+strong{font-weight:600;color:inherit}
+
+/* topo */
+.topo{position:sticky;top:0;z-index:20;background:rgba(5,7,10,.96);border-bottom:1px solid var(--fio-e);padding-top:env(safe-area-inset-top,0px)}
+.topo__linha{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);min-height:64px}
+.wordmark{height:19px;width:auto;flex:none}
+.topo nav{display:flex;gap:26px}
+.topo nav a{color:var(--claro2);text-decoration:none;font-size:14px;font-weight:500;padding:12px 0}
+.topo nav a:hover{color:var(--claro)}
+.topo__para{font-size:13px;color:var(--mudo);letter-spacing:.02em}
+
+/* abertura */
+.hero{padding-block:clamp(56px,8vw,112px) clamp(50px,6vw,84px)}
+.hero .grade{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(34px,5vw,70px);align-items:end}
+.hero .tela{color:var(--claro);margin-top:var(--s3)}
+.hero .tela span{display:block;color:var(--claro2)}
+.hero .tela i{font-style:normal;color:var(--ciano)}
+.carta{margin-top:var(--s4);display:grid;gap:14px}
+.carta p{max-width:54ch}
+.mosaico{display:grid;grid-template-columns:1.3fr 1fr;gap:10px}
+.mosaico img{width:100%;height:100%;object-fit:cover;border-radius:14px;border:1px solid var(--fio-e)}
+.mosaico .a{grid-row:1 / span 2;aspect-ratio:3/4.4}
+.mosaico .b{aspect-ratio:1}
+.mosaico .c{aspect-ratio:1;object-position:center 62%}
+
+.favor{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(50px,6vw,84px);border-top:1px solid var(--fio-e)}
+.favor div{padding:var(--s3) var(--s3) 0 0}
+.favor div + div{padding-left:var(--s3);border-left:1px solid var(--fio-e)}
+.favor b{display:block;font-family:var(--f-tit);font-weight:300;font-size:2.1rem;letter-spacing:-.03em;color:var(--claro);line-height:1.1}
+.favor span{display:block;margin-top:6px;font-size:14.5px;line-height:1.45;color:var(--mudo)}
+
+/* sumário */
+.sumario{padding-block:var(--s6)}
+.sumario ol{list-style:none;padding:0;margin-top:var(--s4);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--fio-c)}
+.sumario li{min-width:0}
+.sumario a{display:block;padding:var(--s3) var(--s3) var(--s2) 0;text-decoration:none;color:var(--tinta2);font-size:15px;line-height:1.45;min-height:44px}
+.sumario li + li a{padding-left:var(--s3);border-left:1px solid var(--fio-c)}
+.sumario a b{display:block;font-family:var(--f-tit);font-weight:400;font-size:1.3rem;letter-spacing:-.015em;color:var(--tinta);margin-bottom:6px}
+.sumario a small{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta3);font-weight:600;margin-bottom:10px}
+.sumario a:hover b{color:var(--link)}
+
+/* seções */
+.secao{padding-block:clamp(70px,8.5vw,124px)}
+.secao > .env{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(22px,4vw,56px)}
+.indice{align-self:start;position:sticky;top:100px}
+.indice .num{font-family:var(--f-tit);font-weight:200;font-size:6rem;line-height:.8;letter-spacing:-.05em;color:var(--tinta)}
+.marinho .indice .num,.escuro .indice .num{color:var(--claro)}
+.indice .etiqueta{display:block;margin-top:var(--s2)}
+.miolo > .titulo + .corpo--g{margin-top:var(--s3)}
+.miolo .corpo + .corpo{margin-top:14px}
+.bloco{margin-top:var(--s6)}
+.bloco > .sub + *{margin-top:var(--s2)}
+.bloco > .sub + .corpo + *{margin-top:var(--s3)}
+.nota{margin-top:14px;font-size:13.5px;color:var(--tinta3)}
+.marinho .nota{color:#8FA6BD}
+
+/* régua de itens */
+.regua{list-style:none;padding:0;border-top:1px solid var(--fio-c)}
+.regua li{display:grid;grid-template-columns:minmax(0,15ch) minmax(0,1fr);gap:var(--s4);padding:18px 0;border-bottom:1px solid var(--fio-c)}
+.regua li > *{min-width:0}
+.regua b{font-family:var(--f-tit);font-weight:500;font-size:1.12rem;line-height:1.3;color:var(--tinta);letter-spacing:-.01em}
+.regua span{font-size:16.5px}
+.marinho .regua,.marinho .regua li{border-color:var(--fio-e)}
+.marinho .regua b{color:var(--claro)}
+
+/* passos */
+.passos{list-style:none;padding:0;counter-reset:p;border-top:1px solid var(--fio-c)}
+.passos li{counter-increment:p;display:grid;grid-template-columns:48px minmax(0,1fr);gap:var(--s2);padding:18px 0;border-bottom:1px solid var(--fio-c)}
+.passos li > *{min-width:0}
+.passos li::before{content:counter(p);font-family:var(--f-tit);font-weight:300;font-size:1.9rem;line-height:1;color:var(--tinta);padding-top:2px}
+.passos b{display:block;font-weight:600;color:var(--tinta)}
+.passos p{font-size:16.5px;margin-top:3px}
+.marinho .passos,.marinho .passos li,.escuro .passos,.escuro .passos li{border-color:var(--fio-e)}
+.marinho .passos li::before,.escuro .passos li::before{color:var(--ciano)}
+.marinho .passos b,.escuro .passos b{color:var(--claro)}
+
+/* fixo e varia */
+.duas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--fio-c)}
+.duas > div{padding:var(--s3) var(--s4) 0 0;min-width:0}
+.duas > div + div{padding-left:var(--s4);border-left:1px solid var(--fio-c)}
+.duas h4{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--tinta);margin-bottom:10px}
+.duas ul{list-style:none;padding:0}
+.duas li{position:relative;padding:7px 0 7px 20px;font-size:16.5px}
+.duas li::before{content:"";position:absolute;left:0;top:1.02em;width:8px;height:1px;background:var(--tinta)}
+
+/* stories simulados */
+.trilho{overflow-x:auto;padding-bottom:var(--s1);margin-top:var(--s4);scrollbar-width:thin}
+.seq{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s2)}
+@media (max-width:900px){.seq{grid-template-columns:repeat(5,minmax(150px,1fr));min-width:800px}}
+.seq > *{min-width:0}
+.leg{margin-top:14px}
+.leg small{display:block;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--tinta3)}
+.leg b{display:block;font-family:var(--f-tit);font-weight:500;font-size:1.1rem;color:var(--tinta);margin-top:4px}
+.leg span{display:block;font-size:14px;line-height:1.45;margin-top:3px}
+.st{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#07090B;color:#F3EEE2;box-shadow:0 22px 44px rgba(10,35,64,.22)}
+.st .barra{position:absolute;top:8px;left:9px;right:9px;display:flex;gap:3px;z-index:3}
+.st .barra i{flex:1;height:2px;border-radius:2px;background:rgba(255,255,255,.3)}
+.st .barra i.on{background:rgba(255,255,255,.92)}
+.st .marca{position:absolute;top:18px;left:11px;z-index:3;font-size:7.5px;letter-spacing:.34em;color:var(--ouro);font-weight:700}
+.st .cheia{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.st .veu{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 52%,rgba(0,0,0,.86) 100%)}
+.st .base{position:absolute;left:13px;right:13px;bottom:14%;z-index:2}
+.st .k{font-size:7px;letter-spacing:.32em;text-transform:uppercase;color:var(--ouro);font-weight:700}
+.st .m{font-family:var(--f-tit);font-weight:400;font-size:17px;letter-spacing:.01em;line-height:1.1;margin-top:4px}
+.st .l{font-size:9px;line-height:1.42;color:rgba(243,238,226,.8);margin-top:6px}
+.st .faixas{position:absolute;top:30px;left:0;right:0;bottom:16%;display:grid;grid-template-rows:repeat(3,1fr);gap:3px}
+.st .faixas div{position:relative;overflow:hidden}
+.st .faixas img{width:100%;height:100%;object-fit:cover}
+.st .faixas span{position:absolute;left:9px;bottom:6px;font-size:6.5px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.st .pe{position:absolute;left:13px;right:13px;bottom:5.5%;z-index:2;font-size:7px;letter-spacing:.26em;text-transform:uppercase;color:rgba(243,238,226,.72)}
+.st .meia{position:absolute;top:0;left:0;width:100%;height:52%;object-fit:cover;object-position:center 62%}
+.st .painel{position:absolute;left:0;right:0;top:52%;bottom:0;padding:13px 13px 0;background:#0C0C0E;border-top:1px solid var(--ouro)}
+.st .linha{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(243,238,226,.1);font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,238,226,.6)}
+.st .linha u{display:block;width:38%;height:5px;border-radius:3px;background:rgba(243,238,226,.18)}
+.st .linha.valor u{height:8px;width:46%;background:rgba(207,168,81,.3)}
+.st .enquete{position:absolute;left:14%;right:14%;top:44%;z-index:2;background:#fff;color:#111;border-radius:10px;padding:9px 8px 8px;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.st .enquete p{font-size:8px;font-weight:700;line-height:1.3}
+.st .enquete div{display:flex;margin-top:6px;border-top:1px solid #e3e3e3}
+.st .enquete span{flex:1;padding-top:6px;font-size:8px;font-weight:700;color:#0a84ff}
+.st .enquete span + span{border-left:1px solid #e3e3e3}
+.st .link{position:absolute;left:50%;transform:translateX(-50%);bottom:16%;z-index:2;background:#fff;color:#0a84ff;border-radius:7px;padding:5px 9px;font-size:7.5px;font-weight:700;white-space:nowrap}
+.st .cap{position:absolute;left:10%;right:10%;bottom:25%;z-index:2;text-align:center;font-size:10.5px;font-weight:700;line-height:1.35;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+.st .cap em{font-style:normal;color:var(--ouro)}
+.st .terco{position:absolute;left:13px;bottom:9%;z-index:2;border-left:2px solid var(--ouro);padding-left:7px}
+.st .terco b{display:block;font-size:8.5px;font-weight:700;letter-spacing:.04em}
+.st .terco span{display:block;font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,238,226,.7);margin-top:2px}
+
+/* feed */
+.provas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:var(--s4)}
+.provas figure{min-width:0}
+.provas .quadro{aspect-ratio:3/4;overflow:hidden;border-radius:6px;background:#000;border:1px solid var(--fio-c)}
+.provas img{width:100%;height:100%;object-fit:cover}
+.provas figcaption{margin-top:10px;font-size:14px;line-height:1.45;color:var(--tinta3)}
+.provas figcaption b{color:var(--tinta);font-weight:600}
+.barras{max-width:760px}
+.barras .r{display:grid;grid-template-columns:150px minmax(0,1fr) 58px;gap:var(--s2);align-items:center;padding:12px 0;border-bottom:1px solid var(--fio-c)}
+.barras .r > *{min-width:0}
+.barras .r:first-child{border-top:1px solid var(--fio-c)}
+.barras .lab b{display:block;font-family:var(--f-tit);font-weight:500;color:var(--tinta);font-size:1.02rem}
+.barras .lab span{font-size:12.5px;color:var(--tinta3);font-variant-numeric:tabular-nums}
+.barras .trilha{height:10px;background:rgba(18,58,95,.08);border-radius:5px;position:relative;overflow:hidden}
+.barras .enche{position:absolute;inset:0 auto 0 0;background:var(--tinta3);border-radius:5px}
+.barras .r.cheio .enche{background:var(--ciano)}
+.barras .v{font-family:var(--f-tit);font-weight:400;font-size:1.25rem;text-align:right;color:var(--tinta);font-variant-numeric:tabular-nums}
+
+/* vídeo */
+.video{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:clamp(30px,5vw,64px);align-items:start;margin-top:var(--s5)}
+.video .st{box-shadow:0 26px 60px rgba(0,60,120,.4)}
+
+/* anúncios */
+.contas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--fio-c);margin-top:var(--s4)}
+.contas div{padding:var(--s3) var(--s3) var(--s3) 0;min-width:0;border-bottom:1px solid var(--fio-c)}
+.contas div + div{padding-left:var(--s3);border-left:1px solid var(--fio-c)}
+.contas b{display:block;font-family:var(--f-tit);font-weight:300;font-size:2.4rem;line-height:1;letter-spacing:-.03em;color:var(--tinta)}
+.contas span{display:block;margin-top:8px;font-size:14.5px;line-height:1.45}
+.antes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--fio-c);border-bottom:1px solid var(--fio-c)}
+.antes > div{padding:var(--s3) var(--s4) var(--s4) 0;min-width:0}
+.antes > div + div{padding-left:var(--s4);border-left:1px solid var(--fio-c)}
+.antes h4{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--tinta3);margin-bottom:14px}
+.antes .depois h4{color:var(--link)}
+.anuncio{background:var(--branco);border:1px solid var(--fio-c);border-radius:12px;padding:16px 18px;font-size:15.5px;line-height:1.6;color:#1F2D3A;white-space:pre-line;box-shadow:0 10px 28px rgba(10,35,64,.07)}
+.anuncio .mais{color:var(--tinta3)}
+.antes .por{margin-top:14px;font-size:14.5px;color:var(--tinta3);line-height:1.5}
+.antes .titulos{margin-top:16px;font-size:14px;color:var(--tinta3)}
+.antes .titulos ul{list-style:none;padding:0;margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+.antes .titulos li{border:1px solid var(--fio-c);border-radius:999px;padding:5px 11px;font-size:13.5px;color:var(--tinta);background:var(--branco)}
+.citacao{margin-top:var(--s4);padding-left:var(--s3);border-left:2px solid var(--ciano);max-width:58ch;font-family:var(--f-tit);font-weight:300;font-size:clamp(1.3rem,2.2vw,1.65rem);line-height:1.3;letter-spacing:-.015em;color:var(--tinta)}
+.citacao small{display:block;margin-top:10px;font-family:var(--f-txt);font-size:13.5px;letter-spacing:0;color:var(--tinta3)}
+
+/* fecho */
+.fecho{padding-block:clamp(70px,8.5vw,124px) var(--s6)}
+.fecho > .env{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(22px,4vw,56px)}
+.fecho .titulo{color:var(--claro)}
+.assina{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--fio-e);display:flex;flex-wrap:wrap;align-items:center;gap:var(--s4) var(--s5)}
+.assina b{display:block;font-family:var(--f-tit);font-weight:400;font-size:1.4rem;color:var(--claro);letter-spacing:-.01em}
+.assina span{font-size:14.5px;color:var(--mudo)}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 22px;border-radius:999px;background:var(--ciano);color:#04141F;text-decoration:none;font-weight:600;font-size:15.5px;transition:transform .2s ease, box-shadow .2s ease;touch-action:manipulation}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,180,255,.28)}
+.btn svg{width:18px;height:18px}
+.rodape{border-top:1px solid var(--fio-e);padding-block:var(--s3) calc(var(--s4) + env(safe-area-inset-bottom,0px))}
+.rodape .env{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--s2);font-size:13px;color:var(--mudo)}
+
+@media (max-width:900px){
+  .topo nav{display:none}
+  .hero .grade{grid-template-columns:minmax(0,1fr)}
+  .mosaico{order:-1}
+  .favor{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .favor div:nth-child(3){padding-left:0;border-left:0}
+  .favor div:nth-child(n+3){border-top:1px solid var(--fio-e);margin-top:var(--s3)}
+  .sumario ol{grid-template-columns:minmax(0,1fr)}
+  .sumario li + li a{padding-left:0;border-left:0}
+  .sumario a{border-bottom:1px solid var(--fio-c);padding-right:0}
+  .secao > .env,.fecho > .env{grid-template-columns:minmax(0,1fr)}
+  .indice{position:static;display:flex;align-items:baseline;gap:var(--s2)}
+  .indice .num{font-size:4rem}
+  .indice .etiqueta{margin-top:0}
+  .provas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contas div:nth-child(3){padding-left:0;border-left:0}
+  .video{grid-template-columns:minmax(0,1fr)}
+  .video .st{max-width:240px}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .duas,.antes{grid-template-columns:minmax(0,1fr)}
+  .duas > div,.antes > div{padding-right:0}
+  .duas > div + div,.antes > div + div{padding-left:0;border-left:0;border-top:1px solid var(--fio-c);margin-top:var(--s3)}
+  .regua li{grid-template-columns:minmax(0,1fr);gap:4px}
+  .barras .r{grid-template-columns:100px minmax(0,1fr) 46px;gap:10px}
+  .topo__para{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero .tela,.carta,.mosaico{animation:sobe .8s cubic-bezier(.2,.7,.2,1) both}
+  .carta{animation-delay:.08s}
+  .mosaico{animation-delay:.16s}
+  @keyframes sobe{from{transform:translateY(12px)}to{transform:none}}
+}
+</style>
+</head>
+<body>
+
+<header class="topo escuro">
+  <div class="env topo__linha">
+    <svg class="wordmark" viewBox="0 0 1580 300" role="img" aria-label="Moza">
+      <title>Moza</title>
+      <g fill="none" stroke="#E6EDF3" stroke-width="40" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20,280 V150 A130,130 0 0 1 280,150 V280 M280,150 A130,130 0 0 1 540,150 V280"/>
+        <circle cx="750" cy="150" r="130"/>
+        <path d="M960,20 H1220 L960,280 H1220"/>
+        <circle cx="1430" cy="150" r="130"/>
+        <path d="M1560,20 V280"/>
+      </g>
+      <circle cx="750" cy="150" r="40" fill="#00B4FF"/>
+    </svg>
+    <nav aria-label="Pontos do documento">
+      <a href="#stories">Stories</a>
+      <a href="#feed">Feed</a>
+      <a href="#video">Vídeo</a>
+      <a href="#anuncios">Anúncios</a>
+      <a href="#casas">As duas casas</a>
+    </nav>
+    <span class="topo__para">Para a Hermanos</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero escuro">
+    <div class="env">
+      <div class="grade">
+        <div>
+          <p class="etiqueta">Hermanos Premium e Hermanos Multimarcas · outubro de 2026</p>
+          <h1 class="tela">O showroom já é um estúdio. <span>O digital pode mostrar isso <i>inteiro.</i></span></h1>
+          <div class="carta corpo--g">
+            <p>Gregory, obrigado por abrir a loja na terça, e ao Nigel pela ponte. Saí de lá com algumas anotações sobre o que a Hermanos já faz bem e pode render mais com ajustes pequenos.</p>
+            <p>Organizamos tudo aqui, com exemplos tirados dos próprios perfis de vocês, para servir de base para a equipe. Nada disso pede loja nova, câmera nova ou gente a mais.</p>
+          </div>
+        </div>
+        <div class="mosaico">
+          <img class="a" src="img/macan-verde.jpg" width="625" height="824" alt="Porsche Macan verde no showroom da Hermanos">
+          <img class="b" src="img/fachada.jpg" width="622" height="578" alt="Fachada da Hermanos Premium à noite">
+          <img class="c" src="img/718.jpg" width="625" height="837" alt="Porsche 718 Boxster cinza no showroom">
+        </div>
+      </div>
+      <div class="favor" aria-label="O que a Hermanos já tem a favor">
+        <div><b>8 anos</b><span>de loja, com a marca comemorando isso no perfil</span></div>
+        <div><b>60 mil</b><span>seguidores e selo verificado no @hermanospremium</span></div>
+        <div><b>2 casas</b><span>Premium na Av. Casa Verde e Multimarcas na Av. Eng. Caetano Álvares</span></div>
+        <div><b>1 cenário</b><span>teto escuro, spots e piso claro que fotografam como estúdio</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sumario nevoa" aria-label="Os cinco pontos">
+    <div class="env">
+      <p class="etiqueta">Os cinco pontos</p>
+      <ol>
+        <li><a href="#stories"><small>Ponto 1</small><b>Stories</b>Um padrão de apresentação que só poderia ser da Hermanos</a></li>
+        <li><a href="#feed"><small>Ponto 2</small><b>Feed</b>O carro inteiro na grade do perfil</a></li>
+        <li><a href="#video"><small>Ponto 3</small><b>Vídeo falado</b>O carro apresentado por quem vende</a></li>
+        <li><a href="#anuncios"><small>Ponto 4</small><b>Anúncios</b>Menos campanhas e um texto que vende o carro</a></li>
+        <li><a href="#casas"><small>Ponto 5</small><b>As duas casas</b>Cada uma com o seu público e a sua voz</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 1 STORIES -->
+  <section class="secao" id="stories">
+    <div class="env">
+      <div class="indice"><div class="num">1</div><span class="etiqueta">Stories</span></div>
+      <div class="miolo">
+        <h2 class="titulo">Um story de carro que só poderia ser da Hermanos</h2>
+        <p class="corpo--g">Story montado em modelo pronto tem um efeito colateral: o seguidor reconhece o modelo antes de reconhecer a loja. Quem acompanha várias lojas vê a mesma moldura e o mesmo brilho em dezenas de carros e aprende a passar para o próximo.</p>
+        <p class="corpo" style="margin-top:14px">Com um estoque que tem Macan GTS, 718 Boxster e 911, o melhor material de vocês é o carro real dentro do showroom real. A proposta é dar a esse material uma gramática fixa, que o seguidor reconhece de longe, e variar o tipo de tela de carro para carro.</p>
+
+        <div class="bloco">
+          <h3 class="sub">O que fica fixo e o que muda</h3>
+          <div class="duas">
+            <div>
+              <h4>Fica fixo, decidido uma vez</h4>
+              <ul>
+                <li>Preto e dourado da marca, e nenhuma outra cor de destaque</li>
+                <li>Uma fonte para o nome do carro e outra para os dados</li>
+                <li>O logo sempre no mesmo canto, pequeno</li>
+                <li>Placa coberta com o tampa-placa da Hermanos, que vocês já usam</li>
+                <li>Valor sempre ao lado do km</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Muda de carro para carro</h4>
+              <ul>
+                <li>O tipo de tela: chegada, galeria, detalhe, ficha, conversa</li>
+                <li>A ordem e a quantidade de telas, conforme o carro pede</li>
+                <li>O detalhe escolhido para o close</li>
+                <li>A pergunta da enquete</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">Uma sequência de cinco telas para um carro</h3>
+          <p class="corpo">Simulação com fotos que já estão no perfil de vocês. Os dados aparecem como campos, porque entram da ficha real de cada carro.</p>
+          <div class="trilho" tabindex="0" aria-label="Sequência de stories simulada">
+            <div class="seq">
+              <div>
+                <div class="st" role="img" aria-label="Tela de chegada com o Macan verde e o nome do modelo">
+                  <div class="barra"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+                  <div class="marca">HERMANOS</div>
+                  <img class="cheia" src="img/macan-verde.jpg" alt="" style="object-position:center 55%" loading="lazy">
+                  <div class="veu"></div>
+                  <div class="base"><div class="k">Chegou</div><div class="m">Porsche Macan</div><div class="l">Uma frase sobre o carro, na voz da loja.</div></div>
+                </div>
+                <div class="leg"><small>Abre</small><b>Chegada</b><span>Foto grande no showroom e pouco texto. É a tela que segura o dedo.</span></div>
+              </div>
+              <div>
+                <div class="st" role="img" aria-label="Tela de galeria com três vistas do mesmo carro">
+                  <div class="barra"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+                  <div class="marca">HERMANOS</div>
+                  <div class="faixas">
+                    <div><img src="img/macan-verde.jpg" alt="" loading="lazy"><span>Frente 3/4</span></div>
+                    <div><img src="img/macan-verde.jpg" alt="" style="object-position:62% 78%;transform:scale(1.6)" loading="lazy"><span>Roda</span></div>
+                    <div><img src="img/macan-torto.jpg" alt="" style="object-position:center 30%" loading="lazy"><span>Farol</span></div>
+                  </div>
+                  <div class="pe">Porsche Macan</div>
+                </div>
+                <div class="leg"><small>Mostra</small><b>Galeria</b><span>Três vistas do mesmo carro, cada uma com uma etiqueta curta.</span></div>
+              </div>
+              <div>
+                <div class="st" role="img" aria-label="Tela de detalhe com close do carro">
+                  <div class="barra"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+                  <div class="marca">HERMANOS</div>
+                  <img class="cheia" src="img/macan-torto.jpg" alt="" style="object-position:center 60%" loading="lazy">
+                  <div class="veu"></div>
+                  <div class="base"><div class="k">Detalhe</div><div class="l" style="font-size:10.5px;color:#F3EEE2">Um close e uma frase. Roda, banco, painel ou costura.</div></div>
+                </div>
+                <div class="leg"><small>Mostra</small><b>Detalhe</b><span>Vende acabamento. Aqui o enquadramento inclinado faz sentido.</span></div>
+              </div>
+              <div>
+                <div class="st" role="img" aria-label="Tela de ficha com ano, km, câmbio e valor">
+                  <div class="barra"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+                  <div class="marca">HERMANOS</div>
+                  <img class="meia" src="img/macan-verde.jpg" alt="" loading="lazy">
+                  <div class="painel">
+                    <div class="k">Porsche Macan</div>
+                    <div style="height:8px"></div>
+                    <div class="linha"><span>Ano</span><u></u></div>
+                    <div class="linha"><span>Km</span><u></u></div>
+                    <div class="linha"><span>Câmbio</span><u></u></div>
+                    <div class="linha valor"><span>Valor</span><u></u></div>
+                  </div>
+                </div>
+                <div class="leg"><small>Informa</small><b>Ficha</b><span>Até quatro dados, todos da ficha do carro. Valor colado no km.</span></div>
+              </div>
+              <div>
+                <div class="st" role="img" aria-label="Tela de conversa com enquete e link para o WhatsApp">
+                  <div class="barra"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+                  <div class="marca">HERMANOS</div>
+                  <img class="cheia" src="img/macan-verde.jpg" alt="" style="object-position:center 55%;filter:brightness(.55)" loading="lazy">
+                  <div class="enquete"><p>Você levaria em qual cor?</p><div><span>Verde</span><span>Preto</span></div></div>
+                  <div class="link">↗ Falar no WhatsApp</div>
+                </div>
+                <div class="leg"><small>Conversa</small><b>Enquete e link</b><span>Stickers do próprio Instagram, colados na hora de publicar. Botão desenhado não clica.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">Régua para a equipe</h3>
+          <ul class="regua">
+            <li><b>Foto da loja</b><span>Sempre o carro real no showroom de vocês. Cenário inventado e carro gerado por IA são o que deixa o story com cara de modelo pronto.</span></li>
+            <li><b>Pouco texto</b><span>As lojas premium grandes não colocam caixa de texto em cima do carro. A marca aparece no cenário e numa assinatura discreta.</span></li>
+            <li><b>Uma ideia por tela</b><span>Se a tela precisa dizer duas coisas, viram duas telas.</span></li>
+            <li><b>Dado com origem</b><span>Ano, km, valor e opcionais só entram se vierem da ficha do carro. Story com km errado custa mais do que story sem km.</span></li>
+            <li><b>Sem repetir tela</b><span>Na mesma sequência, nenhum tipo de tela aparece duas vezes.</span></li>
+          </ul>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">Como saber se está funcionando</h3>
+          <p class="corpo">Nas estatísticas de cada story, o Instagram mostra quantas pessoas responderam, tocaram no link e saíram em cada tela. Se a segunda tela perde muita gente, é ela que muda na próxima rodada. Depois de algumas semanas, a equipe sabe qual sequência faz o WhatsApp tocar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 FEED -->
+  <section class="secao nevoa" id="feed">
+    <div class="env">
+      <div class="indice"><div class="num">2</div><span class="etiqueta">Feed</span></div>
+      <div class="miolo">
+        <h2 class="titulo">O carro inteiro na grade do perfil</h2>
+        <p class="corpo--g">Desde janeiro de 2025 o Instagram mostra a grade do perfil em retângulos verticais, na proporção 3:4. Foto feita em outro formato é aparada nas laterais quando entra ali, e em carro o corte cai na frente, na traseira ou nas duas.</p>
+
+        <div class="provas">
+          <figure><div class="quadro"><img src="img/x6.jpg" width="625" height="837" alt="BMW branca cortada na grade do perfil" loading="lazy"></div><figcaption><b>BMW branca.</b> Aparece a dianteira. A traseira fica fora do quadro.</figcaption></figure>
+          <figure><div class="quadro"><img src="img/xc60.jpg" width="625" height="837" alt="Volvo cinza cortado na grade do perfil" loading="lazy"></div><figcaption><b>Volvo cinza.</b> Perde a ponta da frente e a traseira.</figcaption></figure>
+          <figure><div class="quadro"><img src="img/duster.jpg" width="625" height="803" alt="Renault Duster prata cortado na grade do perfil" loading="lazy"></div><figcaption><b>Duster.</b> Para-choque e traseira cortados nas bordas.</figcaption></figure>
+          <figure><div class="quadro"><img src="img/8anos.jpg" width="625" height="824" alt="Arte de 8 anos em formato horizontal na grade" loading="lazy"></div><figcaption><b>Arte de 8 anos.</b> Feita na horizontal, virou uma faixa num quadro preto.</figcaption></figure>
+        </div>
+        <p class="nota">Quadros como aparecem hoje em @hermanospremium e @hermanosmultimarcas_, vistos em outubro de 2026.</p>
+
+        <div class="bloco">
+          <h3 class="sub">Por que isso pesa</h3>
+          <p class="corpo">A grade é a vitrine de quem já se interessou. Quem chega por anúncio ou indicação rola o perfil antes de chamar no WhatsApp, e ali cada quadro funciona como a capa do carro. No feed, um post vertical ocupa mais tela do celular do que um quadrado ou um horizontal, e fica mais tempo na frente de quem está rolando.</p>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">Quanto da largura da foto aparece na grade</h3>
+          <div class="barras" role="img" aria-label="Largura da foto que aparece na grade 3:4. Vertical 3:4, 100%. Vertical 4:5, 94%. Quadrado, 75%. Horizontal 4:3, 56%.">
+            <div class="r cheio"><div class="lab"><b>Vertical 3:4</b><span>1080 × 1440</span></div><div class="trilha"><div class="enche" style="width:100%"></div></div><div class="v">100%</div></div>
+            <div class="r"><div class="lab"><b>Vertical 4:5</b><span>1080 × 1350</span></div><div class="trilha"><div class="enche" style="width:93.75%"></div></div><div class="v">94%</div></div>
+            <div class="r"><div class="lab"><b>Quadrado 1:1</b><span>1080 × 1080</span></div><div class="trilha"><div class="enche" style="width:75%"></div></div><div class="v">75%</div></div>
+            <div class="r"><div class="lab"><b>Horizontal 4:3</b><span>1440 × 1080</span></div><div class="trilha"><div class="enche" style="width:56.25%"></div></div><div class="v">56%</div></div>
+          </div>
+          <p class="nota">A grade mantém a altura da foto e corta a largura até chegar em 3:4.</p>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">O padrão de post</h3>
+          <ol class="passos">
+            <li><div><b>Exportar em 1080 × 1440.</b><p>É o maior formato vertical que o feed aceita e aparece inteiro na grade.</p></div></li>
+            <li><div><b>Fotografar com folga dos lados.</b><p>O carro ocupa perto de 80% da largura do quadro. Um passo para trás na hora da foto resolve, e o showroom de vocês tem espaço para isso.</p></div></li>
+            <li><div><b>A primeira foto do carrossel é a capa.</b><p>Dianteira 3/4, frente para a esquerda, carro inteiro e reto. As outras fotos vêm depois.</p></div></li>
+            <li><div><b>Escolher a capa dos Reels.</b><p>Os vídeos gravados com a câmera inclinada viram carros tortos na grade. Ao publicar, troque a capa pela foto reta do mesmo carro.</p></div></li>
+            <li><div><b>Arte também nasce vertical.</b><p>Aniversário, comunicado ou evento: a peça já sai em 3:4, com o texto no centro.</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 VÍDEO FALADO -->
+  <section class="secao marinho" id="video">
+    <div class="env">
+      <div class="indice"><div class="num">3</div><span class="etiqueta">Vídeo falado</span></div>
+      <div class="miolo">
+        <h2 class="titulo">O carro apresentado por quem vende</h2>
+        <p class="corpo--g">Hoje os carros aparecem no perfil em edits: música, detalhe, movimento de câmera. Eles criam desejo e devem continuar. O que ainda não existe é o vídeo em que alguém da Hermanos apresenta o carro falando, do jeito que faria com o cliente no showroom.</p>
+
+        <div class="video">
+          <div>
+            <p class="corpo">Quem compra seminovo desse valor quer saber de onde o carro veio, quanto rodou, como foi cuidado e por que ele está ali. O vídeo falado responde isso antes do WhatsApp e coloca um rosto na loja. A conversa já começa com confiança, e o vendedor não repete as mesmas respostas a cada contato.</p>
+
+            <div class="bloco">
+              <h3 class="sub">A ordem de um vídeo</h3>
+              <ol class="passos">
+                <li><div><b>Abertura no carro.</b><p>Nome do carro e um motivo para continuar assistindo, na primeira frase. "Macan GTS 2022, 35 mil quilômetros, e tem um detalhe nele que pouca gente repara."</p></div></li>
+                <li><div><b>A volta por fora.</b><p>Frente, lateral, roda e traseira. Cada item com o que ele entrega, em tom de consultor: o nome do equipamento e depois o que ele faz pelo dono.</p></div></li>
+                <li><div><b>A frase de quem apresenta.</b><p>No meio do vídeo, algo que só quem vende aquele carro diria: o que reparou quando ele chegou, ou a pergunta que um cliente fez na semana. Essa parte nenhum roteiro escreve.</p></div></li>
+                <li><div><b>Por dentro.</b><p>Painel ligado mostrando a rodagem, bancos e acabamento.</p></div></li>
+                <li><div><b>Procedência e convite.</b><p>Laudo, revisões e histórico. Fecha com o convite para ver de perto na loja.</p></div></li>
+              </ol>
+              <p class="nota">Cabe entre 45 segundos e pouco mais de um minuto.</p>
+            </div>
+          </div>
+          <div>
+            <div class="st" role="img" aria-label="Simulação de vídeo falado com o 718 Boxster, legenda na tela e nome do apresentador">
+              <div class="barra"><i class="on"></i></div>
+              <div class="marca">HERMANOS</div>
+              <img class="cheia" src="img/718.jpg" alt="" style="object-position:center 50%" loading="lazy">
+              <div class="veu"></div>
+              <div class="cap">Câmbio PDK de dupla embreagem: <em>a troca acontece</em> sem você sentir.</div>
+              <div class="terco"><b>Porsche 718 Boxster 2024</b><span>Quem apresenta · Hermanos Premium</span></div>
+            </div>
+            <p class="nota" style="max-width:240px">Simulação: legenda palavra por palavra e o nome do carro na tela, sobre a foto de um carro do estoque.</p>
+          </div>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">Para gravar</h3>
+          <ul class="regua">
+            <li><b>Quem apresenta</b><span>A mesma pessoa em cada casa, para o público reconhecer. Pode ser o Gregory ou um vendedor fixo.</span></li>
+            <li><b>Som</b><span>Microfone de lapela no celular. Áudio ruim derruba o vídeo antes da imagem.</span></li>
+            <li><b>Luz e lugar</b><span>O showroom já resolve. O carro fica no mesmo ponto das fotos, e o estoque inteiro ganha a mesma cara.</span></li>
+            <li><b>Legenda na tela</b><span>Boa parte das pessoas assiste sem som. A legenda acompanha a fala, palavra por palavra.</span></li>
+            <li><b>Tom de cada casa</b><span>Na Premium, com calma, falando de procedência, configuração e exclusividade. Na Multimarcas, mais direto, falando de oportunidade, troca e consignação.</span></li>
+            <li><b>Onde usar</b><span>Reels do perfil, um trecho na sequência de stories do carro e, depois, como anúncio em vídeo do estoque, ao lado da arte de hoje.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ANÚNCIOS -->
+  <section class="secao" id="anuncios">
+    <div class="env">
+      <div class="indice"><div class="num">4</div><span class="etiqueta">Anúncios</span></div>
+      <div class="miolo">
+        <h2 class="titulo">Menos campanhas, cada uma com um trabalho e um texto que vende o carro</h2>
+        <p class="corpo--g">Lemos os anúncios ativos da Hermanos na Biblioteca de Anúncios da Meta em 22 de outubro de 2026: 45 anúncios, perto de 68 contando as versões. A base é boa. Foto real do showroom, um carro por anúncio, preço na tela e prova de valor, como o print da Webmotors no anúncio do X6 M.</p>
+
+        <div class="contas" aria-label="Os anúncios ativos por frente">
+          <div><b>13</b><span>para seguir o perfil, em vídeo, com o mesmo texto</span></div>
+          <div><b>14</b><span>de estoque, um carro por anúncio, com preço</span></div>
+          <div><b>9</b><span>de captação, para comprar ou consignar o carro do cliente</span></div>
+          <div><b>9</b><span>de entrega a cliente e vídeo de carro em destaque</span></div>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">O que aparece antes do "mais"</h3>
+          <p class="corpo">No feed, o texto do anúncio aparece só até perto de 125 caracteres. O resto fica atrás do "mais". Os anúncios de estoque seguem o mesmo molde ("Um SUV que une… Ideal para quem busca… sem abrir mão de…"), e o argumento que decide, como o valor abaixo da média, só aparece depois do parágrafo de descrição.</p>
+          <p class="citacao">"São duas 911 disponíveis, e cada uma está saindo por quase R$ 50 MIL ABAIXO da Tabela FIPE."<small>Abertura do anúncio das duas 911, que já faz o certo: o fato mais forte na primeira linha. É esse jeito que vale levar para todo o estoque.</small></p>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">O mesmo anúncio, com os mesmos dados</h3>
+          <div class="antes">
+            <div>
+              <h4>Hoje, BMW X6 M</h4>
+              <div class="anuncio">BMW X6 M Competition 4.4 V8 2022. Um SUV coupé de alta performance com toda a força do V8 biturbo, aliado à segurança da blin<span class="mais">… mais</span></div>
+              <p class="por">É tudo o que aparece antes do toque. Os R$ 35 mil abaixo da média da Webmotors e a blindagem ficam escondidos na lista.</p>
+            </div>
+            <div class="depois">
+              <h4>Proposta</h4>
+              <div class="anuncio">BMW X6 M Competition 2022, blindado e R$ 35 mil abaixo da média da Webmotors.
+V8 4.4 biturbo, blindagem BSS, preto. Seminovo é unidade única: quando sair, não entra outro igual.
+Agende uma visita na loja e veja de perto.</div>
+              <div class="titulos">Títulos para a Meta testar
+                <ul><li>X6 M 2022 por R$ 669.900</li><li>R$ 35 mil abaixo da média</li><li>V8 4.4 biturbo e blindado</li><li>Só um X6 M Competition</li><li>X6 M 2022 com blindagem BSS</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">A régua do texto</h3>
+          <ul class="regua">
+            <li><b>Primeiros 80 caracteres</b><span>Modelo, ano e o fato mais forte daquele carro: abaixo da FIPE, km baixo, blindagem, único dono. Descrição de "SUV que une design e conforto" serve para qualquer loja e pode sair.</span></li>
+            <li><b>Título com número</b><span>Preço, km, ano ou diferença para a média, em até 27 caracteres. A Meta aceita até cinco títulos e cinco textos por anúncio e testa sozinha qual entrega melhor.</span></li>
+            <li><b>Urgência verdadeira</b><span>Cada seminovo é um só e não tem reposição. Isso é verdade e não expira, ao contrário de "só hoje". No ticket alto, dito sem pressa.</span></li>
+            <li><b>Revisão antes de subir</b><span>Num anúncio de R$ 699.900, "FUll PPF" e uma linha da ficha que termina pela metade pesam mais do que parece.</span></li>
+          </ul>
+        </div>
+
+        <div class="bloco">
+          <h3 class="sub">A estrutura das campanhas</h3>
+          <p class="corpo">Com muitos anúncios soltos, a verba se divide em pedaços pequenos e nenhum deles junta resultado para a Meta aprender. A plataforma precisa de cerca de 50 resultados por semana num conjunto de anúncios para sair da fase de aprendizado. Hoje, carros do mesmo tipo saem às vezes com o botão de WhatsApp, às vezes com "Cadastre-se" ou "Ver detalhes", e fica difícil comparar o que funciona.</p>
+          <ul class="regua" style="margin-top:var(--s3)">
+            <li><b>Estoque</b><span>Uma campanha por casa, com destino WhatsApp. Os carros entram e saem como anúncios dentro dela, em vez de uma campanha nova por carro. A mensagem pronta do WhatsApp leva o nome do carro, para a equipe saber de qual anúncio veio a conversa.</span></li>
+            <li><b>Captação</b><span>Uma campanha para compra e consignação, com a página de avaliação rápida como destino único. As versões por modelo, como a do T-Cross, ficam lado a lado e a Meta escolhe.</span></li>
+            <li><b>Audiência</b><span>Os vídeos de bastidor e de entrega formam a base de quem já conhece a loja. Quem assistiu boa parte do vídeo passa a ver os anúncios de estoque.</span></li>
+            <li><b>Formato</b><span>No feed, arte em 4:5. Em Stories e Reels, 9:16. Parte das artes de estoque está em 1:1 e ocupa menos tela que as de captação, que já estão em 4:5.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 AS DUAS CASAS -->
+  <section class="secao nevoa" id="casas">
+    <div class="env">
+      <div class="indice"><div class="num">5</div><span class="etiqueta">As duas casas</span></div>
+      <div class="miolo">
+        <h2 class="titulo">Duas casas, dois públicos, cada uma com a sua voz</h2>
+        <p class="corpo--g">A Hermanos Premium vende carro premium. A Hermanos Multimarcas vende multimarcas. Quem procura um 911 e quem procura o primeiro SUV automático decidem de jeitos diferentes, e cada casa ganha quando fala só com o seu público. Nos perfis essa separação já existe. Nos anúncios, ainda não.</p>
+        <ul class="regua" style="margin-top:var(--s4)">
+          <li><b>O nome no anúncio</b><span>Os 45 anúncios ativos saem com o nome HermanosMultimarcas, inclusive os de 911, 718 Boxster e Macan GTS. Com uma página da Premium no Facebook, ligada ao @hermanospremium, cada carro passa a ser anunciado pela casa dele.</span></li>
+          <li><b>O destino</b><span>Os anúncios de Porsche também levam para as páginas da Multimarcas. O carro premium termina na Premium: no perfil, no site ou no WhatsApp da casa.</span></li>
+          <li><b>O texto</b><span>O anúncio para seguir o perfil fala de "mercado de carros premium" e assina como Multimarcas. Na Premium, a conversa é procedência, configuração e atendimento consultivo. Na Multimarcas, oportunidade, troca e consignação.</span></li>
+          <li><b>A verba e o público</b><span>Cada casa com a sua campanha, a sua verba e a sua base de remarketing. Assim fica claro quanto custa uma conversa em cada uma, e um público não disputa verba com o outro.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="fecho escuro">
+    <div class="env">
+      <div class="indice"><span class="etiqueta">Por onde começar</span></div>
+      <div class="miolo">
+        <h2 class="titulo">Na ordem do que dá resultado mais rápido</h2>
+        <ol class="passos" style="margin-top:var(--s4)">
+          <li><div><b>Feed.</b><p>Muda já no próximo post. É formato, enquadramento e capa.</p></div></li>
+          <li><div><b>Stories.</b><p>Definir o que fica fixo uma vez e montar a primeira sequência com um carro que acabou de chegar.</p></div></li>
+          <li><div><b>Vídeo falado.</b><p>Escolher quem apresenta em cada casa e gravar o primeiro com o carro mais procurado do estoque.</p></div></li>
+          <li><div><b>Anúncios e as duas casas.</b><p>Separar as campanhas por casa, juntar o que está solto e reescrever os textos dos carros que mais giram.</p></div></li>
+        </ol>
+        <p class="corpo" style="margin-top:var(--s4)">Se quiser, sentamos com a equipe de vocês para colocar o primeiro desses em prática, com um carro do estoque de agora. Qualquer dúvida sobre algum ponto, é só me chamar.</p>
+        <div class="assina">
+          <div><b>Kauan</b><span>Moza · comercial · (11) 94877-9809</span></div>
+          <a class="btn" href="https://wa.me/5511948779809?text=Oi%20Kauan%2C%20li%20as%20notas%20da%20Hermanos" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.3 7.4L3.5 20.5l1.5-4.6A8.4 8.4 0 1 1 20.5 11.6Z" stroke-linejoin="round"/></svg>
+            Conversar no WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape escuro">
+  <div class="env"><span>Moza · mozabr.com.br</span><span>Preparado para a Hermanos em outubro de 2026</span></div>
+</footer>
+
+</body>
+</html>
