@@ -140,6 +140,32 @@ O método é a **faixa escura da segunda metade** (`tom-azul`), em teste desde
 seção: o resto (emenda entre faixas, cor do texto, chips) se ajusta sozinho
 pelos tokens de tom.
 
+## Compostura: a régua do sério e elegante
+
+Pedido do Kauan em 23/10/2026: o site inteiro mais sério, com elegância e
+finesse. O que a primeira passada cortou, e por quê:
+
+- **Brilho ciano.** Halo em botão, em barra de rolagem, em aba e em chapa.
+  Elegância quase nunca brilha: brilho lê como jogo e sci-fi. O ciano ficou
+  como pontuação chapada, em preenchimento e em fio de 1px.
+- **Escala de outdoor.** Manchete de 5.6rem e número de 6.5rem. Voz normal e
+  espaço generoso fazem mais volume do que corpo grande.
+- **Retrato fingido.** Os sócios tinham um círculo com um ponto no meio no
+  lugar da foto. Era espaço vazio fingindo desenho, e era o que mais tirava a
+  seriedade da página. Virou ficha editorial, com régua e função em versalete.
+  **Não volta a inventar retrato: ou entra foto de verdade, ou fica a ficha.**
+- **Painel de BI.** O placar da prova era número gigante com rótulo minúsculo.
+  Virou tabela com fio, peso parelho entre o dado e o que ele quer dizer.
+- **Rolagem por frase.** Os passos dos portais caíram de 105 e 90 para 82 e 74.
+
+**O que ainda está em aberto:** a página é centralizada em quase tudo, e
+parágrafo centralizado atrás de parágrafo centralizado é o oposto de
+composição editorial. A assimetria é a próxima alavanca, e depende das
+referências que o Kauan vai mandar.
+
+**Não mexer sem pedido:** o hero, a seção "O centro tem nome" (`#nome`) e "O
+próximo passo" (`.chamada`). Aprovados em 23/10/2026.
+
 ## O teto do vetor
 
 A roda já levou três passadas: luz de uma fonte só em `userSpaceOnUse`,

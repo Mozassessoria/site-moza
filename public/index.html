@@ -109,7 +109,7 @@
          batidas do argumento atravessam a tela uma a uma, e atrás delas a roda
          se desenha: os raios aparecem, tremem, e o centro nunca vem. O vazio no
          meio é o argumento. O método, mais abaixo, é quem preenche ele. -->
-    <div class="portal" data-portal data-portal-m="1" data-portal-passo="105">
+    <div class="portal" data-portal data-portal-m="1" data-portal-passo="82">
       <div class="portal__palco">
         <div class="portal__bruma" aria-hidden="true"></div>
         <svg class="roda roda--oca" viewBox="0 0 460 460" aria-hidden="true">
@@ -322,7 +322,7 @@
          São elementos em perspectiva 3D de verdade, não isometria desenhada:
          quem faz o ângulo é o perspective do palco, e a câmera se move com a
          rolagem. Sai de ferramentas/obra.py. -->
-    <div class="portal" data-portal data-portal-passo="90">
+    <div class="portal" data-portal data-portal-passo="74">
       <div class="portal__palco">
         <div class="portal__bruma" aria-hidden="true"></div>
         <div class="obra" aria-hidden="true">
@@ -646,20 +646,25 @@
         <p class="corpo corpo--g" style="margin-top:var(--s3)">A casa nasceu em 2026 em Santo André,
         São Paulo, e atende o Brasil inteiro de forma remota.</p>
       </div>
-      <div class="socios">
-        <article class="socio entra">
-          <div class="socio__retrato"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke="#78848F" stroke-width="1.5"/><circle cx="20" cy="20" r="5" fill="#00B4FF"/></svg></div>
-          <p class="socio__papel">Comercial</p>
-          <h3 class="socio__nome">Kauan</h3>
-          <p>Quem te atende do diagnóstico ao fechamento.</p>
-        </article>
-        <article class="socio entra">
-          <div class="socio__retrato"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke="#78848F" stroke-width="1.5"/><circle cx="20" cy="20" r="5" fill="#00B4FF"/></svg></div>
-          <p class="socio__papel">Operacional</p>
-          <h3 class="socio__nome">Murillo</h3>
-          <p>Quem constrói posicionamento, conteúdo e performance.</p>
-        </article>
-      </div>
+      <!-- Sem retrato até existir retrato. O círculo com um ponto no meio era
+           um espaço vazio fingindo ser desenho, e era o que mais tirava a
+           seriedade da página. Ficha editorial diz a mesma coisa com ordem. -->
+      <dl class="socios">
+        <div class="socio entra">
+          <dt class="socio__papel">Comercial</dt>
+          <dd class="socio__ficha">
+            <p class="socio__nome">Kauan</p>
+            <p class="socio__linha">Quem te atende do diagnóstico ao fechamento.</p>
+          </dd>
+        </div>
+        <div class="socio entra">
+          <dt class="socio__papel">Operacional</dt>
+          <dd class="socio__ficha">
+            <p class="socio__nome">Murillo</p>
+            <p class="socio__linha">Quem constrói posicionamento, conteúdo e performance.</p>
+          </dd>
+        </div>
+      </dl>
     </div>
   </section>
 
